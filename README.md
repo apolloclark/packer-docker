@@ -5,6 +5,7 @@ Packer, Ansible, Serverspec, project to create an Elastic stack Beats Docker ima
 
 ## Install
 ```shell
+git clone https://github.com/apolloclark/packer-elk-docker
 
 cd ./packer-elk-docker/auditbeat
 
@@ -12,5 +13,5 @@ cd ./packer-elk-docker/auditbeat
 export DOCKER_USERNAME="test"
 ./build_packer_docker.sh
 
-docker run -it apolloclark/auditbeat:$(date -u '+%Y%m%d') bash
+docker run -it $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') bash
 ```
