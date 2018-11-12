@@ -1,0 +1,56 @@
+{
+  "variables": {
+    "ansible_host": "default",
+    "ansible_connection": "docker",
+    "username": "{{env `DOCKER_USERNAME`}}",
+    "version": "{{isotime \"20060102.030405\"}}",
+    "version_simple": "{{isotime \"20060102\"}}"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:16.04",
+      "commit": "true",
+      "run_command": [
+        "-d",
+        "-i",
+        "-t",
+        "--name",
+        "{{user `ansible_host`}}",
+        "{{.Image}}",
+        "/bin/bash"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get update",
+        "apt-get install -y aptitude jq python-minimal git apt-transport-https -yq"
+      ]
+    },
+    {
+      "type": "shell-local",
+  	  "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
+    },
+    {
+      "type": "ansible",
+      "user": "root",
+      "playbook_file": "./ansible/playbook.yml",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "apolloclark/auditbeat",
+        "tag": "{{user `version_simple`}}"
+      }
+    ]
+  ]
+}
