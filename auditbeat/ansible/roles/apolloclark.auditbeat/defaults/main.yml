@@ -1,6 +1,0 @@
----
-elastic_url: "https://artifacts.elastic.co"
-
-# Overload variables using the dict named "auditbeat"
-auditbeat:
-  version: "6.4.0"
