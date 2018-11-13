@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: apolloclark
-  description: Install and configure a LAMP stack with ELK monitoring
+  description: Install and configure the Elastic Auditbeat
   license: "license (BSD, MIT)"
   min_ansible_version: 2.0
   platforms:
@@ -11,11 +11,8 @@ galaxy_info:
       versions:
       - all
   galaxy_tags:
-    - development
-    - web
-    - php
-    - apache
-    - mysql
+    - elastic
     - security
     - elk
     - devsecops
+    - auditbeat

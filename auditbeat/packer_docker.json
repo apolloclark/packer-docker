@@ -2,6 +2,7 @@
   "variables": {
     "ansible_host": "default",
     "ansible_connection": "docker",
+    "beat": "auditbeat",
     "username": "{{env `DOCKER_USERNAME`}}",
     "version": "{{isotime \"20060102.030405\"}}",
     "version_simple": "{{isotime \"20060102\"}}"
@@ -19,6 +20,14 @@
         "{{user `ansible_host`}}",
         "{{.Image}}",
         "/bin/bash"
+      ],
+      "changes": [
+        "ENV ELASTIC_CONTAINER true",
+        "ENV PATH=/usr/share/{{user `beat`}}:$PATH",
+        "USER root",
+        "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
+        "CMD [\"-e\"]",
+        "WORKDIR /usr/share/{{user `beat`}}"
       ]
     }
   ],
@@ -27,7 +36,9 @@
       "type": "shell",
       "inline": [
         "apt-get update",
-        "apt-get install -y aptitude jq python-minimal git apt-transport-https -yq"
+        "apt-get install -y aptitude python-minimal git apt-transport-https -yq",
+        "groupadd --gid 1000 {{user `beat`}}",
+        "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `beat`}} --shell /bin/bash {{user `beat`}}"
       ]
     },
     {
@@ -42,13 +53,18 @@
         "--extra-vars",
         "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
       ]
+    },
+    {
+      "type": "file",
+      "source": "./files/docker-entrypoint",
+      "destination": "/usr/local/bin/docker-entrypoint"
     }
   ],
   "post-processors": [
     [
       {
         "type": "docker-tag",
-        "repository": "apolloclark/auditbeat",
+        "repository": "apolloclark/{{user `beat`}}",
         "tag": "{{user `version_simple`}}"
       }
     ]

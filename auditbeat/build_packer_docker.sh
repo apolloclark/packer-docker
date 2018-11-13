@@ -1,11 +1,18 @@
 #!/bin/bash -eux
 start=`date +%s`
 
+# remove previously built local images
+docker image rmi $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') -f  || true
+
+docker container rm default -f || true
+
+# run Packer
 packer validate packer_docker.json
 
 packer inspect packer_docker.json
 
 packer build packer_docker.json
+
 
 end=`date +%s`
 secs=$((end-start))

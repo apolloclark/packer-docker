@@ -2,6 +2,11 @@
 
 Packer, Ansible, Serverspec, project to create an Elastic stack Beats Docker image.
 
+## Requirements
+
+- Packer
+- Ansible
+- aws-cli
 
 ## Install
 ```shell
@@ -13,5 +18,13 @@ cd ./packer-elk-docker/auditbeat
 export DOCKER_USERNAME="test"
 ./build_packer_docker.sh
 
-docker run -it $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') bash
+docker run -it $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') /bin/bash
+
+docker run \
+  --cap-add audit_control \
+  --pid=host \
+  --rm \
+  --interactive \
+  $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') \
+  help
 ```
