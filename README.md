@@ -18,6 +18,8 @@ cd ./packer-elk-docker/auditbeat
 export DOCKER_USERNAME="test"
 ./build_packer_docker.sh
 
+rspec ./spec/Dockerfile_spec.rb
+
 docker run -it $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') /bin/bash
 
 docker run \
@@ -27,4 +29,6 @@ docker run \
   --interactive \
   $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') \
   help
+
+rake spec
 ```
