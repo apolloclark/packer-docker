@@ -1,0 +1,15 @@
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
+---
+hostname: all
+
+# apolloclark/heartbeat
+heartbeat:
+  version: "6.4.2"
+  skip_restart: true
+  output:
+    elasticsearch:
+      enabled: true
+      hosts:
+        - "127.0.0.1:9200"
+      username: elastic
+      password: changeme
