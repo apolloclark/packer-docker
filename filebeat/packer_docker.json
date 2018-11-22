@@ -24,7 +24,7 @@
       "changes": [
         "ENV ELASTIC_CONTAINER true",
         "ENV PATH=/usr/share/{{user `beat`}}:$PATH",
-        "USER filebeat",
+        "USER {{user `beat`}}",
         "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
         "CMD [\"-e\"]",
         "WORKDIR /usr/share/{{user `beat`}}"
@@ -62,10 +62,10 @@
     {
       "type": "shell",
       "inline": [
-        "chown -R root:filebeat /var/log/filebeat",
-        "chmod -R 0770 /var/log/filebeat",
-        "chown -R root:filebeat /var/lib/filebeat",
-        "chmod -R 0770 /var/lib/filebeat"
+        "chown -R root:{{user `beat`}} /var/log/{{user `beat`}}",
+        "chmod -R 0770 /var/log/{{user `beat`}}",
+        "chown -R root:{{user `beat`}} /var/lib/{{user `beat`}}",
+        "chmod -R 0770 /var/lib/{{user `beat`}}"
       ]
     }
   ],
