@@ -30,5 +30,10 @@ docker run \
   $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') \
   help
 
+docker run \
+  --interactive \
+  $DOCKER_USERNAME/filebeat:$(date -u '+%Y%m%d') \
+  help
+
 rake spec
 ```
