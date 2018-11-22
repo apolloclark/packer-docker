@@ -51,7 +51,15 @@ docker run \
   --rm \
   --interactive \
   $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') \
-  help
+  test config -c /etc/auditbeat/auditbeat.yml
+  
+docker run \
+  --cap-add net_raw \
+  --cap-add net_admin \
+  --rm \
+  --interactive \
+  $DOCKER_USERNAME/packetbeat \
+  test config -c /etc/packetbeat/packetbeat.yml
 
 docker run \
   --interactive \

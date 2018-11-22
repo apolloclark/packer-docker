@@ -22,3 +22,8 @@ rspec ./spec/Dockerfile_spec.rb
 cd ../heartbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
+
+# build packetbeat
+cd ../packetbeat
+./build_packer_docker.sh
+rspec ./spec/Dockerfile_spec.rb

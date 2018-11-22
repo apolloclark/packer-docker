@@ -1,0 +1,29 @@
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
+---
+hostname: all
+
+# apolloclark/packetbeat
+packetbeat:
+  version: "6.4.2"
+  skip_restart: true
+  interfaces:
+    device: "any"
+  flows:
+    timeout: "30s"
+    period: "10s"
+  protocols:
+    dns:
+      enabled: true
+      ports: '[53]'
+      include_authorities: true
+      include_additionals: true
+    http:
+      enabled: true
+      ports: '[80, 5601, 9200, 8080, 8081, 5000, 8002]'
+  output:
+    elasticsearch:
+      enabled: true
+      hosts:
+        - "127.0.0.1:9200"
+      username: elastic
+      password: changeme

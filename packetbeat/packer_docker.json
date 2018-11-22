@@ -1,0 +1,86 @@
+{
+  "variables": {
+    "ansible_host": "default",
+    "ansible_connection": "docker",
+    "beat": "packetbeat",
+    "username": "{{env `DOCKER_USERNAME`}}",
+    "version": "{{isotime \"20060102.030405\"}}",
+    "version_simple": "{{isotime \"20060102\"}}"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:16.04",
+      "commit": "true",
+      "run_command": [
+        "-d",
+        "-i",
+        "-t",
+        "--name",
+        "{{user `ansible_host`}}",
+        "{{.Image}}",
+        "/bin/bash"
+      ],
+      "changes": [
+        "ENV ELASTIC_CONTAINER true",
+        "ENV PATH=/usr/share/{{user `beat`}}:$PATH",
+        "USER packetbeat",
+        "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
+        "CMD [\"-e\"]",
+        "WORKDIR /usr/share/{{user `beat`}}"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get update",
+        "apt-get install -y aptitude python-minimal git apt-transport-https curl libpcap0.8 -yq",
+        "groupadd --gid 1000 {{user `beat`}}",
+        "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `beat`}} --shell /bin/bash {{user `beat`}}"
+      ]
+    },
+    {
+      "type": "shell-local",
+  	  "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
+    },
+    {
+      "type": "ansible",
+      "user": "root",
+      "playbook_file": "./ansible/playbook.yml",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./files/docker-entrypoint",
+      "destination": "/usr/local/bin/docker-entrypoint"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "chown -R root:{{user `beat`}} /var/log/{{user `beat`}}",
+        "chmod -R 0770 /var/log/{{user `beat`}}",
+        "chown -R root:{{user `beat`}} /var/lib/{{user `beat`}}",
+        "chmod -R 0770 /var/lib/{{user `beat`}}",
+        "setcap cap_net_raw,cap_net_admin=eip /usr/share/packetbeat/bin/packetbeat"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "apolloclark/{{user `beat`}}",
+        "tag": "{{user `version_simple`}}"
+      },
+      {
+        "type": "docker-tag",
+        "repository": "apolloclark/{{user `beat`}}"
+      }
+    ]
+  ]
+}
