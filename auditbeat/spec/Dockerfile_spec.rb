@@ -7,7 +7,7 @@ Docker.validate_version!
 
 describe "Dockerfile" do
   before(:all) do
-    image = Docker::Image.get("apolloclark/auditbeat:20181121")
+    image = Docker::Image.get("apolloclark/auditbeat:latest")
 
     # https://github.com/mizzy/specinfra
     # https://docs.docker.com/engine/api/v1.24/#31-containers

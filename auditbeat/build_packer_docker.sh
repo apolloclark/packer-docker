@@ -3,6 +3,7 @@ start=`date +%s`
 
 # remove previously built local images
 docker image rmi $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') -f  || true
+docker image rmi $DOCKER_USERNAME/auditbeat:latest -f  || true
 
 docker container rm default -f || true
 
