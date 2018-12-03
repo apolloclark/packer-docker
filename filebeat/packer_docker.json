@@ -73,12 +73,12 @@
     [
       {
         "type": "docker-tag",
-        "repository": "apolloclark/{{user `beat`}}",
+        "repository": "{{ user `username` }}/{{user `beat`}}",
         "tag": "{{user `version_simple`}}"
       },
       {
         "type": "docker-tag",
-        "repository": "apolloclark/{{user `beat`}}"
+        "repository": "{{ user `username` }}/{{user `beat`}}"
       }
     ]
   ]
