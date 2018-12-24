@@ -2,7 +2,8 @@
   "variables": {
     "ansible_host": "default",
     "ansible_connection": "docker",
-    "beat": "auditbeat",
+    "package": "auditbeat",
+    "package_version": "{{env `BEATS_VERSION`}}",
     "username": "{{env `DOCKER_USERNAME`}}",
     "version": "{{isotime \"20060102.030405\"}}",
     "version_simple": "{{isotime \"20060102\"}}"
@@ -23,11 +24,11 @@
       ],
       "changes": [
         "ENV ELASTIC_CONTAINER true",
-        "ENV PATH=/usr/share/{{user `beat`}}:$PATH",
+        "ENV PATH=/usr/share/{{user `package`}}:$PATH",
         "USER root",
         "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
         "CMD [\"-e\"]",
-        "WORKDIR /usr/share/{{user `beat`}}"
+        "WORKDIR /usr/share/{{user `package`}}"
       ]
     }
   ],
@@ -37,8 +38,8 @@
       "inline": [
         "apt-get update",
         "apt-get install -y aptitude python-minimal git apt-transport-https -yq",
-        "groupadd --gid 1000 {{user `beat`}}",
-        "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `beat`}} --shell /bin/bash {{user `beat`}}"
+        "groupadd --gid 1000 {{user `package`}}",
+        "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `package`}} --shell /bin/bash {{user `package`}}"
       ]
     },
     {
@@ -64,12 +65,17 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{ user `username` }}/{{user `beat`}}",
+        "repository": "{{ user `username` }}/{{user `package`}}",
+        "tag": "{{user `package_version`}}"
+      },
+      {
+        "type": "docker-tag",
+        "repository": "{{ user `username` }}/{{user `package`}}",
         "tag": "{{user `version_simple`}}"
       },
       {
         "type": "docker-tag",
-        "repository": "{{ user `username` }}/{{user `beat`}}"
+        "repository": "{{ user `username` }}/{{user `package`}}"
       }
     ]
   ]

@@ -2,6 +2,7 @@
 start=`date +%s`
 
 # remove previously built local images
+docker image rmi $DOCKER_USERNAME/metricbeat:$BEATS_VERSION -f  || true
 docker image rmi $DOCKER_USERNAME/metricbeat:$(date -u '+%Y%m%d') -f  || true
 docker image rmi $DOCKER_USERNAME/metricbeat -f  || true
 

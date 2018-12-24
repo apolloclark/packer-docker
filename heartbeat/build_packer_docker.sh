@@ -2,6 +2,7 @@
 start=`date +%s`
 
 # remove previously built local images
+docker image rmi $DOCKER_USERNAME/heartbeat:$BEATS_VERSION -f  || true
 docker image rmi $DOCKER_USERNAME/heartbeat:$(date -u '+%Y%m%d') -f  || true
 docker image rmi $DOCKER_USERNAME/heartbeat -f  || true
 
