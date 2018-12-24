@@ -3,3 +3,4 @@
 .pyproject
 */ansible/roles
 **/playbook.retry
+**/.vagrant
