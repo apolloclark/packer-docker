@@ -1,8 +1,5 @@
 #!/bin/bash -eux
 
-# set your Docker hub username
-export DOCKER_USERNAME="apolloclark"
-
 # test auditbeat
 cd ./auditbeat
 rspec ./spec/Dockerfile_spec.rb
