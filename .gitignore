@@ -8,5 +8,6 @@ build
 
 .project
 .pyproject
+.pydevproject
 .gradle
 .vagrant
