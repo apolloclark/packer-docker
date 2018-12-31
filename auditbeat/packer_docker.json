@@ -37,6 +37,7 @@
       "type": "shell",
       "inline": [
         "apt-get update",
+        "apt-get upgrade -y",
         "apt-get install -y aptitude python-minimal git apt-transport-https -yq",
         "groupadd --gid 1000 {{user `package`}}",
         "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `package`}} --shell /bin/bash {{user `package`}}"
