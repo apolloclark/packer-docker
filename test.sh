@@ -19,3 +19,11 @@ rspec ./spec/Dockerfile_spec.rb
 # test packetbeat
 cd ../packetbeat
 rspec ./spec/Dockerfile_spec.rb
+
+# test openjdk
+cd ../openjdk
+rspec ./spec/Dockerfile_spec.rb
+
+# test oraclejdk
+cd ../oraclejdk
+rspec ./spec/Dockerfile_spec.rb

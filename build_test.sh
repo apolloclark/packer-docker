@@ -25,7 +25,12 @@ cd ../packetbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
 
-# build java
-cd ../java
+# build openjdk
+cd ../openjdk
+./build_packer_docker.sh
+rspec ./spec/Dockerfile_spec.rb
+
+# build oraclejdk
+cd ../oraclejdk
 ./build_packer_docker.sh
 # rspec ./spec/Dockerfile_spec.rb

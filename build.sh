@@ -19,3 +19,11 @@ cd ../heartbeat
 # build packetbeat
 cd ../packetbeat
 ./build_packer_docker.sh
+
+# build openjdk
+cd ../openjdk
+./build_packer_docker.sh
+
+# build oraclejdk
+cd ../oraclejdk
+./build_packer_docker.sh
