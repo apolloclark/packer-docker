@@ -11,3 +11,4 @@ build
 .pydevproject
 .gradle
 .vagrant
+*.retry
