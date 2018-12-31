@@ -2,9 +2,9 @@
 start=`date +%s`
 
 # remove previously built local images
-docker image rmi $DOCKER_USERNAME/java:$JAVA_VERSION -f  || true
-docker image rmi $DOCKER_USERNAME/java:$(date -u '+%Y%m%d') -f  || true
-docker image rmi $DOCKER_USERNAME/java:latest -f  || true
+docker image rmi $DOCKER_USERNAME/openjdk:$JAVA_VERSION -f  || true
+docker image rmi $DOCKER_USERNAME/openjdk:$(date -u '+%Y%m%d') -f  || true
+docker image rmi $DOCKER_USERNAME/openjdk:latest -f  || true
 
 docker container rm default -f || true
 

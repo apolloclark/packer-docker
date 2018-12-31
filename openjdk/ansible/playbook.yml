@@ -8,6 +8,6 @@
   become: true
   become_user: "root"
   vars_files:
-    - "vars.yml"
+    - vars.yml
   roles:
-    - ansiblebit.oracle-java
+    - java-role

@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider "virtualbox" do |vb, override|
 
         # set the VM name
-        vb.name = "packer-java"
+        vb.name = "packer-openjdk"
 
         # set the CPU, memory, graphics
         # @see https://www.virtualbox.org/manual/ch08.html

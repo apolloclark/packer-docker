@@ -2,5 +2,6 @@
 ---
 hostname: all
 
-# ansiblebit.oracle-java
-oracle_java_version_string: 11.0.1-2~linuxuprising1
+# idealista.java-role
+java_open_jdk_version: 11
+java_open_jdk_set_version: 11

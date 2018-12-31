@@ -3,13 +3,13 @@ dependencies: []
 
 galaxy_info:
   author: apolloclark
-  description: Install and configure the Elastic Auditbeat
+  description: Install and configure OpenJDK
   license: "license (BSD, MIT)"
   min_ansible_version: 2.0
   platforms:
     - name: Ubuntu
       versions:
-      - all
+      - xenial
   galaxy_tags:
     - elastic
     - security
