@@ -1,0 +1,6 @@
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
+---
+hostname: all
+
+# ansiblebit.oracle-java
+oracle_java_version_string: 11.0.1-2~linuxuprising1
