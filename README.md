@@ -56,3 +56,29 @@ rake spec
 docker system prune -af
 
 ```
+
+## Build Details
+
+```shell
+Beats, 6.4.2, 2018-10-02
+https://github.com/elastic/beats/releases
+
+Java, 11.0.1, 2018-10-17
+https://en.wikipedia.org/wiki/Java_version_history
+https://launchpad.net/~linuxuprising/+archive/ubuntu/java
+
+Tomcat, 9.0.14, 2018-12-06
+https://tomcat.apache.org/tomcat-9.0-doc/changelog.html
+http://tomcat.apache.org/whichversion.html
+
+
+https://github.com/idealista/java-role
+https://github.com/idealista/tomcat-role
+https://github.com/idealista/zookeeper-role
+https://github.com/idealista/kafka-role
+
+https://github.com/elastic/elasticsearch-docker/tree/master/.tedi/template
+https://molecule.readthedocs.io/en/latest/index.html
+
+
+```
