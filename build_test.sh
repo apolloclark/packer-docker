@@ -33,4 +33,4 @@ rspec ./spec/Dockerfile_spec.rb
 # build oraclejdk
 cd ../oraclejdk
 ./build_packer_docker.sh
-# rspec ./spec/Dockerfile_spec.rb
+rspec ./spec/Dockerfile_spec.rb

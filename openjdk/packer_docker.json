@@ -23,10 +23,10 @@
         "/bin/bash"
       ],
       "changes": [
-        "ENV JAVA_HOME /usr/lib/jvm/java-11-oracle",
+        "ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64",
         "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
-        "CMD [\"-help\"]",
-        "WORKDIR /usr/bin"
+        "WORKDIR /usr/bin",
+        "CMD [\"bash\"]"
       ]
     }
   ],

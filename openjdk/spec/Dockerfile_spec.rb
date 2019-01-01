@@ -7,7 +7,7 @@ Docker.validate_version!
 
 describe "Dockerfile" do
   before(:all) do
-    image = Docker::Image.get("apolloclark/openjdk:latest")
+    image = Docker::Image.get("apolloclark/openjdk")
 
     # https://github.com/mizzy/specinfra
     # https://docs.docker.com/engine/api/v1.24/#31-containers
@@ -36,9 +36,9 @@ describe "Dockerfile" do
     expect(package("openjdk-11-jdk")).to be_installed
   end
 
-  describe command("java -version") do
+  describe command("java --version") do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should contain 'openjdk version "11.0.1"' }
+    its(:stdout) { should contain '11.0.1' }
   end
 
 end

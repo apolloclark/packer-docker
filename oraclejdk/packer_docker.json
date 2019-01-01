@@ -25,8 +25,8 @@
       "changes": [
         "ENV JAVA_HOME /usr/lib/jvm/java-11-oracle",
         "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
-        "CMD [\"-help\"]",
-        "WORKDIR /usr/bin"
+        "WORKDIR /usr/bin",
+        "CMD [\"bash\"]"
       ]
     }
   ],
