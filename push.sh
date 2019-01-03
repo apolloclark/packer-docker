@@ -7,7 +7,7 @@ docker push $DOCKER_USERNAME/metricbeat:$BEATS_VERSION;
 docker push $DOCKER_USERNAME/packetbeat:$BEATS_VERSION;
 docker push $DOCKER_USERNAME/openjdk:$JAVA_VERSION;
 docker push $DOCKER_USERNAME/oraclejdk:$JAVA_VERSION;
-docker push $DOCKER_USERNAME/tomcat:$JAVA_VERSION;
+docker push $DOCKER_USERNAME/tomcat:$TOMCAT_VERSION;
 
 docker push $DOCKER_USERNAME/auditbeat:latest;
 docker push $DOCKER_USERNAME/filebeat:latest;
