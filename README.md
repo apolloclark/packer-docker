@@ -18,6 +18,7 @@ cd ./packer-elk-docker
 export DOCKER_USERNAME="apolloclark" # $(whoami)
 export BEATS_VERSION="6.4.2"
 export JAVA_VERSION="11.0.1"
+export TOMCAT_VERSION="9.0.14"
 
 # ./all.sh
 ./lint.sh
