@@ -34,3 +34,8 @@ rspec ./spec/Dockerfile_spec.rb
 cd ../oraclejdk
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
+
+# build tomcat
+cd ../tomcat
+./build_packer_docker.sh
+rspec ./spec/Dockerfile_spec.rb

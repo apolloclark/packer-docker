@@ -27,3 +27,7 @@ cd ../openjdk
 # build oraclejdk
 cd ../oraclejdk
 ./build_packer_docker.sh
+
+# build tomcat
+cd ../tomcat
+./build_packer_docker.sh
