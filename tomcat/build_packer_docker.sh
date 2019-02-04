@@ -1,6 +1,11 @@
 #!/bin/bash -eux
 start=`date +%s`
 
+# set vars to defaults, if not defined
+export DOCKER_USERNAME=${DOCKER_USERNAME:=$(whoami)}
+export TOMCAT_VERSION=${TOMCAT_VERSION:="9.0.14"}
+echo $TOMCAT_VERSION
+
 # remove previously built local images
 docker image rmi $DOCKER_USERNAME/tomcat:$TOMCAT_VERSION -f  || true
 docker image rmi $DOCKER_USERNAME/tomcat:$(date -u '+%Y%m%d') -f  || true

@@ -4,7 +4,7 @@ hostname: all
 
 # apolloclark/heartbeat
 heartbeat:
-  version: "6.4.2"
+  version: "6.5.4"
   skip_restart: true
   output:
     elasticsearch:

@@ -16,14 +16,20 @@ cd ./packer-elk-docker
 
 # set your Docker hub username, beats version, java version
 export DOCKER_USERNAME="apolloclark" # $(whoami)
-export BEATS_VERSION="6.4.2"
-export JAVA_VERSION="11.0.1"
-export TOMCAT_VERSION="9.0.14"
+export BEATS_VERSION="6.5.4"   # https://github.com/elastic/beats/releases
+export JAVA_VERSION="11.0.1"   # https://launchpad.net/~openjdk-r/+archive/ubuntu/ppa?field.series_filter=xenial
+export TOMCAT_VERSION="9.0.14" # https://archive.apache.org/dist/tomcat/tomcat-9/
 
 # ./all.sh
 ./lint.sh
 ./build_test.sh
 ./push.sh
+
+gradlew tasks
+gradlew properties
+gradlew build_test
+
+
 
 
 
@@ -61,7 +67,7 @@ docker system prune -af
 ## Build Details
 
 ```shell
-Beats, 6.4.2, 2018-10-02
+Beats, 6.5.4, 2018-12-19
 https://github.com/elastic/beats/releases
 
 Java, 11.0.1, 2018-10-17
@@ -69,6 +75,7 @@ https://en.wikipedia.org/wiki/Java_version_history
 https://launchpad.net/~linuxuprising/+archive/ubuntu/java
 
 Tomcat, 9.0.14, 2018-12-06
+https://github.com/docker-library/tomcat/blob/master/9.0/jre11/Dockerfile
 https://tomcat.apache.org/tomcat-9.0-doc/changelog.html
 http://tomcat.apache.org/whichversion.html
 

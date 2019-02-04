@@ -52,7 +52,7 @@ describe "Dockerfile" do
 
   describe command("packetbeat version") do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should contain '6.4.2' }
+    its(:stdout) { should contain '6.5.4' }
   end
 
   describe command("packetbeat setup --help") do

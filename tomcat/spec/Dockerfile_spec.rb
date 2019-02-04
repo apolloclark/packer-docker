@@ -25,7 +25,7 @@ describe "Dockerfile" do
   def sys_user
     command("whoami").stdout.strip
   end
-  
+
   def tomcat_version
     command("cd /usr/local/tomcat/lib && java -cp catalina.jar org.apache.catalina.util.ServerInfo").stdout
   end
@@ -55,7 +55,7 @@ describe "Dockerfile" do
     it {should exist}
     it { should have_gid 1000}
   end
-  
+
   describe file('/usr/local/tomcat') do
     it { should exist }
     it { should be_directory }
@@ -69,7 +69,7 @@ describe "Dockerfile" do
     it { should be_owned_by 'tomcat' }
     it { should be_mode 750 }
   end
-  
+
   describe file('/usr/local/tomcat/conf') do
     it { should exist }
     it { should be_directory }
