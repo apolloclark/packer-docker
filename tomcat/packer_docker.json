@@ -11,7 +11,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "apolloclark/openjdk-jre-headless:latest",
+      "image": "apolloclark/openjdk-jre:latest",
       "commit": "true",
       "run_command": [
         "-d",
