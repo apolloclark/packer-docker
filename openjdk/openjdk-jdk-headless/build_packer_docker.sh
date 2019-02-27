@@ -1,10 +1,10 @@
 #!/bin/bash -eux
 start=`date +%s`
 
-# set vars to defaults, if not defined
-export DOCKER_USERNAME=${DOCKER_USERNAME:=$(whoami)}
-export PACKAGE="tomcat"
-export PACKAGE_VERSION=${TOMCAT_VERSION:="9.0.14"}
+# set defaults
+export DOCKER_USERNAME="${DOCKER_USERNAME:-$(whoami)}"
+export PACKAGE="openjdk-jdk-headless"
+export PACKAGE_VERSION="${JAVA_VERSION:-11.0.1}"
 
 # remove previously built local images
 docker image rmi $DOCKER_USERNAME/$PACKAGE:$PACKAGE_VERSION -f  || true

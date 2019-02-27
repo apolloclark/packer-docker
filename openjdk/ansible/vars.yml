@@ -1,7 +1,0 @@
-# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
----
-hostname: all
-
-# idealista.java-role
-java_open_jdk_version_major: 11
-java_open_jdk_version: "11.0.1+13-3ubuntu1~16.04~ppa1"

@@ -3,8 +3,8 @@ start=`date +%s`
 
 # set vars to defaults, if not defined
 export DOCKER_USERNAME=${DOCKER_USERNAME:=$(whoami)}
-export PACKAGE="tomcat"
-export PACKAGE_VERSION=${TOMCAT_VERSION:="9.0.14"}
+export PACKAGE_VERSION=${JENKINS_VERSION:="2.151.2"}
+export PACKAGE="jenkins"
 
 # remove previously built local images
 docker image rmi $DOCKER_USERNAME/$PACKAGE:$PACKAGE_VERSION -f  || true

@@ -1,0 +1,97 @@
+{
+  "variables": {
+    "ansible_host": "default",
+    "ansible_connection": "docker",
+    "package": "{{env `PACKAGE`}}",
+    "package_version": "{{env `PACKAGE_VERSION`}}",
+    "username": "{{env `DOCKER_USERNAME`}}",
+    "version": "{{isotime \"20060102.030405\"}}",
+    "version_simple": "{{isotime \"20060102\"}}"
+  },
+  "builders": [
+    {
+      "type": "docker",
+      "image": "apolloclark/openjdk:latest",
+      "commit": "true",
+      "run_command": [
+        "-d",
+        "-i",
+        "-t",
+        "--name",
+        "{{user `ansible_host`}}",
+        "{{.Image}}",
+        "/bin/bash"
+      ],
+      "changes": [
+        "ENV ELASTIC_CONTAINER true",
+        "ENV JAVA_HOME /usr/lib/jvm/java-11-oracle",
+        "ENV PATH=/usr/share/{{user `package`}}/bin:$PATH",
+        "USER elasticsearch",
+        "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
+        "CMD [\"eswrapper\"]",
+        "WORKDIR /usr/share/{{user `package`}}",
+        "EXPOSE 9200 9300"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "apt-get update",
+        "apt-get upgrade -y",
+        "apt-get install -y sudo aptitude python-minimal git apt-transport-https curl unzip wget -yq",
+        "groupadd --gid 1000 {{user `package`}}",
+        "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `package`}} --shell /bin/bash {{user `package`}}",
+        "mkdir -pv /usr/share/{{user `package`}}/config"
+      ]
+    },
+    {
+      "type": "shell-local",
+  	  "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
+    },
+    {
+      "type": "ansible",
+      "user": "root",
+      "playbook_file": "./ansible/playbook.yml",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./files/docker-entrypoint.sh",
+      "destination": "/usr/local/bin/docker-entrypoint"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "chown -R root:{{user `package`}} /var/log/{{user `package`}}",
+        "chmod -R 0770 /var/log/{{user `package`}}",
+        "chown -R root:{{user `package`}} /var/lib/{{user `package`}}",
+        "chmod -R 0770 /var/lib/{{user `package`}}",
+        "chown -R {{user `package`}}:root /usr/share/{{user `package`}}",
+        "chmod -R 0775 /usr/share/{{user `package`}}"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "{{user `username`}}/{{user `package`}}",
+        "tag": "{{user `package_version`}}"
+      },
+      {
+        "type": "docker-tag",
+        "repository": "{{user `username`}}/{{user `package`}}",
+        "tag": "{{user `version_simple`}}"
+      },
+      {
+        "type": "docker-tag",
+        "repository": "{{user `username`}}/{{user `package`}}"
+      }
+    ]
+  ]
+}

@@ -73,6 +73,7 @@ https://github.com/elastic/beats/releases
 Java, 11.0.1, 2018-10-17
 https://en.wikipedia.org/wiki/Java_version_history
 https://launchpad.net/~linuxuprising/+archive/ubuntu/java
+https://launchpad.net/~openjdk-r/+archive/ubuntu/ppa/+packages?field.name_filter=&field.status_filter=published&field.series_filter=xenial
 
 Tomcat, 9.0.14, 2018-12-06
 https://github.com/docker-library/tomcat/blob/master/9.0/jre11/Dockerfile

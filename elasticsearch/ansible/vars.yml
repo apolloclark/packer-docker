@@ -1,0 +1,9 @@
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
+---
+hostname: all
+
+# apolloclark/elasticsearch
+elasticsearch:
+  config_include_dir: "/usr/share/elasticsearch/config"
+  version: "6.5.4"
+  set_ulimits: false

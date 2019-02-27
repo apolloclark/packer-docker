@@ -2,8 +2,8 @@
   "variables": {
     "ansible_host": "default",
     "ansible_connection": "docker",
-    "package": "tomcat",
-    "package_version": "{{env `TOMCAT_VERSION`}}",
+    "package": "kafka",
+    "package_version": "{{env `KAFKA_VERSION`}}",
     "username": "{{env `DOCKER_USERNAME`}}",
     "version": "{{isotime \"20060102.030405\"}}",
     "version_simple": "{{isotime \"20060102\"}}"
@@ -24,16 +24,8 @@
       ],
       "changes": [
         "ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64",
-        "ENV CATALINA_HOME /usr/local/tomcat",
-        "ENV PATH $CATALINA_HOME/bin:$PATH",
-        "ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib",
-        "ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR",
-        "ENV TOMCAT_MAJOR 9",
-        "ENV TOMCAT_VERSION 9.0.14",
         "USER tomcat",
         "CMD [\"catalina.sh\", \"run\"]",
-        "WORKDIR $CATALINA_HOME",
-        "EXPOSE 8080"
       ]
     }
   ],

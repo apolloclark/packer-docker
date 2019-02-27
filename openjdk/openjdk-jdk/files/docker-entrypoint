@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Check if the the user has invoked the image with flags.
+# eg. "java -classpath /usr/bin"
+if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]] ; then
+  exec java "$@"
+else
+  # They may be looking for a subcommand, like "java -p".
+  subcommands=$(java -help 2>&1 | grep '    -' | awk '{$1=$1};1' | awk '{print $1}')
+
+  # If we _did_ get a subcommand, pass it to java.
+  for subcommand in $subcommands; do
+      if [[ $1 == $subcommand ]]; then
+        exec java "$@"
+      fi
+  done
+fi
+
+# If niether of those worked, then they have specified the binary they want, so
+# just do exactly as they say.
+exec "$@"
