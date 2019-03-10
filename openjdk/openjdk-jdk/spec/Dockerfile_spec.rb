@@ -32,6 +32,10 @@ describe "Dockerfile" do
     expect(os_version).to include("Ubuntu")
   end
 
+  it "runs as root" do
+    expect(sys_user).to include("root")
+  end
+
   it "installs required packages" do
     expect(package("openjdk-11-jdk")).to be_installed
   end

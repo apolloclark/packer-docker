@@ -11,15 +11,10 @@ docker image rmi $DOCKER_USERNAME/$PACKAGE:$PACKAGE_VERSION -f  || true
 docker image rmi $DOCKER_USERNAME/$PACKAGE:$(date -u '+%Y%m%d') -f  || true
 docker image rmi $DOCKER_USERNAME/$PACKAGE:latest -f  || true
 
-docker container rm default -f || true
-
 # run Packer
 packer validate packer_docker.json
-
 packer inspect packer_docker.json
-
 packer build packer_docker.json
-
 
 end=`date +%s`
 secs=$((end-start))

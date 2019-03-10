@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "ansible_user": "vagrant",
+  	"atlas_box_tag": "apolloclark/ubuntu16.04-java",
+    "atlas_token": "{{ env `ATLAS_TOKEN` }}",
+    "cpus": "1",
+    "headless": "true",
+    "hostname": "vagrant",
+    "memory": "1024",
+    "project_name": "packer-aws-java",
+    "source_path": "../packer-aws-beats/output/vmware/ubuntu1604-beats.vmx",
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant",
+    "vagrantfile_template": "",
+    "vm_name": "ubuntu1604-java",
+    "version": "{{isotime \"20060102.030405\"}}"
+  },
+  "builders": [
+    {
+      "type": "vmware-vmx",
+      "source_path": "{{ user `source_path` }}",
+      "output_directory": "output/vmware",
+      "headless": "{{ user `headless` }}",
+      "output_directory": "output/vmware",
+      "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "600s",
+      "tools_upload_flavor": "linux",
+      "vm_name": "{{ user `vm_name` }}",
+      "vmx_data": {
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+        "ethernet0.present": true,
+        "ethernet0.startConnected": true,
+        "ethernet0.connectionType": "custom",
+        "ethernet0.vnet": "vmnet8"
+      },
+      "vmx_remove_ethernet_interfaces": true,
+      "vm_name": "{{user `vm_name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible-local",
+      "playbook_dir": "./ansible",
+      "galaxy_file": "./ansible/requirements.yml",
+      "playbook_file": "./ansible/playbook.yml"
+    },
+    {
+      "type": "file",
+      "source": "./serverspec",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{ user `ssh_password` }}' | sudo -E -S bash '{{.Path}}'",
+      "inline": [
+        "source /etc/profile.d/rvm.sh;",
+        "cd /tmp/serverspec; rake spec"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
+}

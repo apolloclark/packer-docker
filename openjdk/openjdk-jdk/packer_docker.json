@@ -1,6 +1,5 @@
 {
   "variables": {
-    "ansible_host": "default",
     "ansible_connection": "docker",
     "package": "{{env `PACKAGE`}}",
     "package_version": "{{env `PACKAGE_VERSION`}}",
@@ -17,8 +16,6 @@
         "-d",
         "-i",
         "-t",
-        "--name",
-        "{{user `ansible_host`}}",
         "{{.Image}}",
         "/bin/bash"
       ],
@@ -26,6 +23,7 @@
         "ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64",
         "ENTRYPOINT [\"/usr/local/bin/docker-entrypoint\"]",
         "WORKDIR /usr/bin",
+        "USER root",
         "CMD [\"bash\"]"
       ]
     }
@@ -46,11 +44,7 @@
     {
       "type": "ansible",
       "user": "root",
-      "playbook_file": "./ansible/playbook_local.yml",
-      "extra_arguments": [
-        "--extra-vars",
-        "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
-      ]
+      "playbook_file": "./ansible/playbook.yml"
     },
     {
       "type": "file",
