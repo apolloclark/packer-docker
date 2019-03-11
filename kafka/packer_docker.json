@@ -1,9 +1,10 @@
 {
   "variables": {
-    "ansible_host": "default",
+    "ansible_host": "{{env `PACKAGE`}}",
     "ansible_connection": "docker",
-    "package": "kafka",
-    "package_version": "{{env `KAFKA_VERSION`}}",
+    "image": "{{env `DOCKER_BASE_IMAGE`}}",
+    "package": "{{env `PACKAGE`}}",
+    "package_version": "{{env `PACKAGE_VERSION`}}",
     "username": "{{env `DOCKER_USERNAME`}}",
     "version": "{{isotime \"20060102.030405\"}}",
     "version_simple": "{{isotime \"20060102\"}}"
@@ -11,7 +12,7 @@
   "builders": [
     {
       "type": "docker",
-      "image": "apolloclark/openjdk-jre-headless:latest",
+      "image": "{{user `image`}}",
       "commit": "true",
       "run_command": [
         "-d",
@@ -24,8 +25,7 @@
       ],
       "changes": [
         "ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64",
-        "USER tomcat",
-        "CMD [\"catalina.sh\", \"run\"]",
+        "USER kafka"
       ]
     }
   ],
@@ -37,7 +37,7 @@
     {
       "type": "ansible",
       "user": "root",
-      "playbook_file": "./ansible/playbook_local.yml",
+      "playbook_file": "./ansible/playbook.yml",
       "extra_arguments": [
         "--extra-vars",
         "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"

@@ -3,11 +3,10 @@
 # playbook.yml
 
 - hosts: all
-  connection: ssh
   gather_facts: true
   become: true
   become_user: "root"
   vars_files:
     - vars.yml
   roles:
-    - tomcat-role
+    - idealista.kafka-role
