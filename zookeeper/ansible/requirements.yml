@@ -1,0 +1,3 @@
+# http://docs.ansible.com/ansible/latest/galaxy.html#installing-multiple-roles-from-a-file
+---
+ - src: idealista.zookeeper_role   # https://github.com/idealista/zookeeper_role

@@ -1,0 +1,12 @@
+# http://docs.ansible.com/ansible/latest/playbooks_best_practices.html#directory-layout
+---
+# playbook.yml
+
+- hosts: all
+  gather_facts: true
+  become: true
+  become_user: "root"
+  vars_files:
+    - vars.yml
+  roles:
+    - idealista.zookeeper_role

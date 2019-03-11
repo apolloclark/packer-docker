@@ -36,7 +36,7 @@ gradlew build_test
 # run a specific container
 docker run -it $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') /bin/bash
 
-# run auditbeat
+# run auditbeat, with necessary privs
 docker run \
   --cap-add audit_control \
   --pid=host \
@@ -45,7 +45,7 @@ docker run \
   $DOCKER_USERNAME/auditbeat:$(date -u '+%Y%m%d') \
   test config -c /etc/auditbeat/auditbeat.yml
 
-# run packetbeat
+# run packetbeat, with necessary privs
 docker run \
   --cap-add net_raw \
   --cap-add net_admin \
@@ -80,6 +80,11 @@ https://github.com/docker-library/tomcat/blob/master/9.0/jre11/Dockerfile
 https://tomcat.apache.org/tomcat-9.0-doc/changelog.html
 http://tomcat.apache.org/whichversion.html
 
+Zookeeper, 3.4.13, 2018-06-15
+https://zookeeper.apache.org/releases.html
+
+Kafka, 2.1.1, 2019-02-15
+https://kafka.apache.org/downloads
 
 https://github.com/idealista/java-role
 https://github.com/idealista/tomcat-role

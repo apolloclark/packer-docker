@@ -5,26 +5,5 @@ hostname: all
 # idealista.kafka-role
 kafka_version: 2.1.1
 kafka_scala_version: 2.12
-kafka_port: 9999
-kafka_jvm_performance_opts: "-XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80"
-kafka_xmx: "768m"
-kafka_xms: "512m"
-kafka_topics:
-  - name: 'test'
-    partitions: '3'
-    replicas: '3'
-  - name: 'test2'
-    partitions: '5'
-    replicas: '1'
-
-kafka_topics_config:
-  - name: 'test'
-    delete.retention.ms: 100000
-    max.message.bytes: 1024
-  - name: 'test2'
-    delete.retention.ms: 100000
-    max.message.bytes: 2048
-
-kafka_extra_properties:
-  - key: message.max.bytes
-    value: 409715200
+kafka_service_enabled: 'no'
+kafka_service_state: 'stopped'

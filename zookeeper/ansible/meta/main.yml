@@ -1,0 +1,14 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: apolloclark
+  description: Install and configure Apache Kafka
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.0
+  platforms:
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - kafka

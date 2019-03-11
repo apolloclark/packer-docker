@@ -1,0 +1,8 @@
+# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
+---
+hostname: all
+
+# idealista.zookeeper_role
+zookeeper_version: 3.4.13
+zookeeper_service_enabled: 'no'
+zookeeper_service_state: 'stopped'

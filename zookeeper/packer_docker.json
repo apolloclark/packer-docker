@@ -18,6 +18,12 @@
         "-d",
         "-i",
         "-t",
+        "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro",
+        "--privileged",
+        "--cap-add",
+        "SYS_ADMIN",
+        "--network",
+        "zookeeper",
         "--name",
         "{{user `ansible_host`}}",
         "{{.Image}}",
@@ -25,6 +31,8 @@
       ],
       "changes": [
         "ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64",
+        "CMD [\"/lib/systemd/systemd\"]",
+        "EXPOSE 9999",
         "USER {{user `package`}}"
       ]
     }
@@ -37,10 +45,6 @@
         "apt-get upgrade -y",
         "apt-get install -y python sudo systemd systemd-sysv bash ca-certificates"
       ]
-    },
-    {
-      "type": "shell-local",
-      "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
     },
     {
       "type": "ansible",
