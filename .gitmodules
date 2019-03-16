@@ -1,0 +1,15 @@
+[submodule "packer-osquery"]
+	path = packer-osquery
+	url = https://github.com/apolloclark/packer-osquery
+[submodule "packer-ruby"]
+	path = packer-ruby
+	url = https://github.com/apolloclark/packer-ruby
+[submodule "packer-nodejs"]
+	path = packer-nodejs
+	url = https://github.com/apolloclark/packer-nodejs
+[submodule "packer-tomcat"]
+	path = packer-tomcat
+	url = https://github.com/apolloclark/packer-tomcat
+[submodule "packer-cloudsploit"]
+	path = packer-cloudsploit
+	url = https://github.com/apolloclark/packer-cloudsploit
