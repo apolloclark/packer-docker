@@ -1,3 +1,5 @@
 # http://docs.ansible.com/ansible/latest/galaxy.html#installing-multiple-roles-from-a-file
 ---
-- src: idealista.java_role          # https://github.com/idealista/java-role
+- src: https://github.com/apolloclark/java_role
+  version: develop
+  name: java_role

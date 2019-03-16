@@ -7,7 +7,9 @@ Docker.validate_version!
 
 describe "Dockerfile" do
   before(:all) do
-    image = Docker::Image.get("apolloclark/openjdk-jdk")
+    image = Docker::Image.get(
+      ENV['DOCKER_USERNAME'] + "/" + ENV['PACKAGE'] + ":" + ENV['PACKAGE_VERSION'] + "-" + ENV['IMAGE_NAME']
+    )
 
     # https://github.com/mizzy/specinfra
     # https://docs.docker.com/engine/api/v1.24/#31-containers
