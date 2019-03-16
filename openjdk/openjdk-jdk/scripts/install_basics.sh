@@ -8,5 +8,5 @@ fi
 
 if [ -x "$(command -v yum)" ]; then
 	yum update -y
-	yum install -y which nano curl wget git
+	yum install -y which nano curl wget git initscripts
 fi
