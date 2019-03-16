@@ -5,5 +5,6 @@ hostname: all
 # apolloclark/elasticsearch
 elasticsearch:
   config_include_dir: "/usr/share/elasticsearch/config"
-  version: "6.5.4"
+  version: "6.6.2"
   set_ulimits: false
+  # install_only: true

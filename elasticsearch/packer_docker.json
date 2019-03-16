@@ -1,18 +1,20 @@
 {
   "variables": {
-    "ansible_host": "default",
+    "ansible_host": "{{env `PACKAGE`}}-{{env `IMAGE_NAME`}}",
     "ansible_connection": "docker",
+    "base_image": "{{env `BASE_IMAGE`}}",
+    "build_date": "{{isotime \"20060102\"}}",
+    "image_name": "{{env `IMAGE_NAME`}}",
     "package": "{{env `PACKAGE`}}",
     "package_version": "{{env `PACKAGE_VERSION`}}",
-    "username": "{{env `DOCKER_USERNAME`}}",
-    "version": "{{isotime \"20060102.030405\"}}",
-    "version_simple": "{{isotime \"20060102\"}}"
+    "username": "{{env `DOCKER_USERNAME`}}"
   },
   "builders": [
     {
       "type": "docker",
-      "image": "apolloclark/openjdk:latest",
+      "image": "{{user `base_image`}}",
       "commit": "true",
+      "exec_user": "root",
       "run_command": [
         "-d",
         "-i",
@@ -38,17 +40,10 @@
     {
       "type": "shell",
       "inline": [
-        "apt-get update",
-        "apt-get upgrade -y",
-        "apt-get install -y sudo aptitude python-minimal git apt-transport-https curl unzip wget -yq",
         "groupadd --gid 1000 {{user `package`}}",
         "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/{{user `package`}} --shell /bin/bash {{user `package`}}",
         "mkdir -pv /usr/share/{{user `package`}}/config"
       ]
-    },
-    {
-      "type": "shell-local",
-  	  "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
     },
     {
       "type": "ansible",
@@ -80,17 +75,13 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `username`}}/{{user `package`}}",
-        "tag": "{{user `package_version`}}"
+        "repository": "{{ user `username` }}/{{user `package`}}",
+        "tag": "{{user `package_version`}}-{{user `image_name`}}-{{user `build_date`}}"
       },
       {
         "type": "docker-tag",
-        "repository": "{{user `username`}}/{{user `package`}}",
-        "tag": "{{user `version_simple`}}"
-      },
-      {
-        "type": "docker-tag",
-        "repository": "{{user `username`}}/{{user `package`}}"
+        "repository": "{{ user `username` }}/{{user `package`}}",
+        "tag": "{{user `package_version`}}-{{user `image_name`}}"
       }
     ]
   ]

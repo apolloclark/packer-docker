@@ -7,20 +7,22 @@ Docker.validate_version!
 
 describe "Dockerfile" do
   before(:all) do
-    image = Docker::Image.get("apolloclark/elasticsearch:latest")
+    image = Docker::Image.get(
+      ENV['DOCKER_USERNAME'] + "/" + ENV['PACKAGE'] + ":" + ENV['PACKAGE_VERSION'] + "-" + ENV['IMAGE_NAME']
+    )
 
     # https://github.com/mizzy/specinfra
     # https://docs.docker.com/engine/api/v1.24/#31-containers
     # https://github.com/swipely/docker-api
     # https://serverspec.org/resource_types.html
     # https://github.com/elastic/elasticsearch-docker/tree/master/tests
-    set :os, family: :debian
+    set :os, family: :redhat
     set :backend, :docker
     set :docker_image, image.id
   end
 
   def os_version
-    command("uname -a").stdout
+    command("cat /etc/os-release").stdout
   end
 
   def sys_user
@@ -29,8 +31,8 @@ describe "Dockerfile" do
 
 
 
-  it "installs the right version of Ubuntu" do
-    expect(os_version).to include("Ubuntu")
+  it "installs the right version of Centos" do
+    expect(os_version).to include("CentOS")
   end
 
   it "installs required packages" do
@@ -43,7 +45,7 @@ describe "Dockerfile" do
 
   describe command("elasticsearch --version") do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should contain '6.5.4' }
+    its(:stdout) { should contain ENV['PACKAGE_VERSION'] }
   end
 
   describe command("elasticsearch --help") do
@@ -65,7 +67,7 @@ describe "Dockerfile" do
     it { should be_file }
     it { should be_owned_by 'elasticsearch' }
     it { should be_grouped_into 'root' }
-    it { should be_mode 755 }
+    it { should be_mode 775 }
   end
 
   describe file('/usr/share/elasticsearch/config/elasticsearch.yml') do
@@ -73,7 +75,7 @@ describe "Dockerfile" do
     it { should be_file }
     it { should be_owned_by 'elasticsearch' }
     it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
+    it { should be_mode 775 }
   end
 
   describe file('/usr/share/elasticsearch/bin') do
@@ -81,7 +83,7 @@ describe "Dockerfile" do
     it { should be_directory }
     it { should be_owned_by 'elasticsearch' }
     it { should be_grouped_into 'root' }
-    it { should be_mode 755 }
+    it { should be_mode 775 }
   end
 
   # https://serverspec.org/resource_types.html#user
