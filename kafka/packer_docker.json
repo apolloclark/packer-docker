@@ -39,10 +39,6 @@
       ]
     },
     {
-      "type": "shell-local",
-      "command": "ansible-galaxy install --force -v --roles-path='./ansible/roles' --role-file='./ansible/requirements.yml'"
-    },
-    {
       "type": "ansible",
       "user": "root",
       "playbook_file": "./ansible/playbook.yml",

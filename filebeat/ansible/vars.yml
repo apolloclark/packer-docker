@@ -4,7 +4,7 @@ hostname: all
 
 # apolloclark/filebeat
 filebeat:
-  version: "6.5.4"
+  version: "6.6.2"
   skip_restart: true
   output:
     elasticsearch:
