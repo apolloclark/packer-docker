@@ -11,20 +11,16 @@ cd $BASE_DIR/packer-pacu
 ./build_packer_docker_all.sh
 
 # build skew
-cd $BASE_DIR/packer-skew
-./build_packer_docker_all.sh
+# cd $BASE_DIR/packer-skew
+# ./build_packer_docker_all.sh
 
 # build aws-inventory
-cd $BASE_DIR/packer-aws-inventory
-./build_packer_docker_all.sh
+# cd $BASE_DIR/packer-aws-inventory
+# ./build_packer_docker_all.sh
 
 # build cloud-custodian
 # cd $BASE_DIR/packer-cloud-custodian
 # ./build_packer_docker_all.sh
-
-# build ruby
-cd ../packer-ruby
-./build_packer_docker_all.sh
 
 
 
@@ -44,6 +40,12 @@ cd $BASE_DIR/openjdk/openjdk-jdk
 
 # build tomcat
 cd cd $BASE_DIR/packer-tomcat
+./build_packer_docker_all.sh
+
+
+
+# build ruby
+cd ../packer-ruby
 ./build_packer_docker_all.sh
 
 exit;
@@ -109,19 +111,3 @@ rspec ./spec/Dockerfile_spec.rb
 cd ../packetbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
-
-
-
-
-
-build_python() &
-build_ruby() &
-build_nodejs() &
-build_openjdk() &
-
-build_osquery() &
-build_auditbeat() &
-build_filebeat() &
-build_heartbeat() &
-build_metricbeat() &
-build_packetbeat() &
