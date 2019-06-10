@@ -1,32 +1,32 @@
 #!/bin/bash -eux
 
-# build openjdk
-cd ./openjdk
+export BASE_DIR=$(pwd);
 
-# build openjdk-jdk
-cd ./openjdk-jdk
-./build_packer_docker_all.sh
-cd ../
-
-
-
-# build tomcat
-cd ../packer-tomcat
+# build python3
+cd $BASE_DIR/packer-python3
 ./build_packer_docker_all.sh
 
-# build elasticsearch
-cd ../elasticsearch
+# build pacu
+cd $BASE_DIR/packer-pacu
 ./build_packer_docker_all.sh
 
-
-
-# build osquery
-cd ../packer-osquery
+# build skew
+cd $BASE_DIR/packer-skew
 ./build_packer_docker_all.sh
+
+# build aws-inventory
+cd $BASE_DIR/packer-aws-inventory
+./build_packer_docker_all.sh
+
+# build cloud-custodian
+# cd $BASE_DIR/packer-cloud-custodian
+# ./build_packer_docker_all.sh
 
 # build ruby
 cd ../packer-ruby
 ./build_packer_docker_all.sh
+
+
 
 # build nodejs
 cd ../packer-nodejs
@@ -36,17 +36,20 @@ cd ../packer-nodejs
 cd ../packer-cloudsploit
 ./build_packer_docker_all.sh
 
-exit 0;
 
 
-
-# build kibana
-cd ../kibana
+# build openjdk
+cd $BASE_DIR/openjdk/openjdk-jdk
 ./build_packer_docker_all.sh
 
-# build logstash
-cd ../logstash
+# build tomcat
+cd cd $BASE_DIR/packer-tomcat
 ./build_packer_docker_all.sh
+
+exit;
+
+
+
 
 # build zookeeper
 cd ../zookeeper
@@ -64,17 +67,23 @@ cd ../jenkins
 cd ../jenkins
 ./build_packer_docker_all.sh
 
-
-
-# build postgres
-cd ../postgres
+# build elasticsearch
+cd ../elasticsearch
 ./build_packer_docker_all.sh
 
-# build redis
-cd ../kafka
+# build kibana
+cd ../kibana
+./build_packer_docker_all.sh
+
+# build logstash
+cd ../logstash
 ./build_packer_docker_all.sh
 
 
+
+# build osquery
+cd ../packer-osquery
+./build_packer_docker_all.sh
 
 # build auditbeat
 cd ./auditbeat
@@ -101,3 +110,18 @@ cd ../packetbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
 
+
+
+
+
+build_python() &
+build_ruby() &
+build_nodejs() &
+build_openjdk() &
+
+build_osquery() &
+build_auditbeat() &
+build_filebeat() &
+build_heartbeat() &
+build_metricbeat() &
+build_packetbeat() &

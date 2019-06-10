@@ -13,3 +13,6 @@
 [submodule "packer-cloudsploit"]
 	path = packer-cloudsploit
 	url = https://github.com/apolloclark/packer-cloudsploit
+[submodule "packer-python3"]
+	path = packer-python3
+	url = https://github.com/apolloclark/packer-python3
