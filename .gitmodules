@@ -16,6 +16,3 @@
 [submodule "packer-tomcat"]
     path = packer-tomcat
     url = https://github.com/apolloclark/packer-tomcat
-[submodule "packer-pacu"]
-	path = packer-pacu
-	url = https://github.com/apolloclark/packer-pacu

@@ -25,11 +25,11 @@ cd $BASE_DIR/packer-pacu
 
 
 # build nodejs
-cd ../packer-nodejs
+cd $BASE_DIR/packer-nodejs
 ./build_packer_docker_all.sh
 
 # build cloudsploit
-cd ../packer-cloudsploit
+cd $BASE_DIR/packer-cloudsploit
 ./build_packer_docker_all.sh
 
 
@@ -45,7 +45,7 @@ cd cd $BASE_DIR/packer-tomcat
 
 
 # build ruby
-cd ../packer-ruby
+cd $BASE_DIR/packer-ruby
 ./build_packer_docker_all.sh
 
 exit;
@@ -54,37 +54,37 @@ exit;
 
 
 # build zookeeper
-cd ../zookeeper
+cd $BASE_DIR/zookeeper
 ./build_packer_docker_all.sh
 
 # build kafka
-cd ../kafka
+cd $BASE_DIR/kafka
 ./build_packer_docker_all.sh
 
 # build jenkins
-cd ../jenkins
+cd $BASE_DIR/jenkins
 ./build_packer_docker_all.sh
 
 # build jmeter
-cd ../jenkins
+cd $BASE_DIR/jenkins
 ./build_packer_docker_all.sh
 
 # build elasticsearch
-cd ../elasticsearch
+cd $BASE_DIR/elasticsearch
 ./build_packer_docker_all.sh
 
 # build kibana
-cd ../kibana
+cd $BASE_DIR/kibana
 ./build_packer_docker_all.sh
 
 # build logstash
-cd ../logstash
+cd $BASE_DIR/logstash
 ./build_packer_docker_all.sh
 
 
 
 # build osquery
-cd ../packer-osquery
+cd $BASE_DIR/packer-osquery
 ./build_packer_docker_all.sh
 
 # build auditbeat
@@ -93,21 +93,21 @@ cd ./auditbeat
 rspec ./spec/Dockerfile_spec.rb
 
 # build filebeat
-cd ../filebeat
+cd $BASE_DIR/filebeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
 
 # build heartbeat
-cd ../heartbeat
+cd $BASE_DIR/heartbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
 
 # build metricbeat
-cd ../metricbeat
+cd $BASE_DIR/metricbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
 
 # build packetbeat
-cd ../packetbeat
+cd $BASE_DIR/packetbeat
 ./build_packer_docker.sh
 rspec ./spec/Dockerfile_spec.rb
