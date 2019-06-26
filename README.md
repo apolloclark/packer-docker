@@ -1,6 +1,6 @@
-# packer-elk-docker
+# packer-docker
 
-Packer, Ansible, Serverspec, project to create an Elastic stack Beats Docker images.
+Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Requirements
 
