@@ -12,3 +12,4 @@ build
 .gradle
 .vagrant
 *.retry
+manifest.json
