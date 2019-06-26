@@ -1,5 +1,7 @@
 # packer-docker
 
+I rebuild my Docker images every week. You should too! 🧐
+
 Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Requirements
@@ -11,8 +13,11 @@ Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Install
 ```shell
-git clone https://github.com/apolloclark/packer-elk-docker
+git clone --recurse-submodules https://github.com/apolloclark/packer-docker
 cd ./packer-elk-docker
+
+# update submodules
+git submodule update --recursive --remote
 
 # set your Docker hub username, beats version, java version
 export DOCKER_USERNAME="apolloclark" # $(whoami)
