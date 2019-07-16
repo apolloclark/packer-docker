@@ -16,7 +16,12 @@ Packer, Ansible, Serverspec, project to create Docker images.
 git clone --recurse-submodules https://github.com/apolloclark/packer-docker
 cd ./packer-elk-docker
 
+# add submodules
+git submodule add https://github.com/apolloclark/gradle-build
+git submodule add https://github.com/apolloclark/packer-build
+
 # update submodules
+git submodule init
 git submodule update --recursive --remote
 
 # set your Docker hub username, beats version, java version
@@ -29,11 +34,6 @@ export TOMCAT_VERSION="9.0.14" # https://archive.apache.org/dist/tomcat/tomcat-9
 ./lint.sh
 ./build_test.sh
 ./push.sh
-
-gradlew tasks
-gradlew properties
-gradlew build_test
-
 
 
 

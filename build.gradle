@@ -1,0 +1,88 @@
+/*
+ * This is a Gradle composite build, which reuses the nested packer-* build
+ * projects. It is intended to be called from a dedicated build platform, such
+ * as Jenkins or TravisCI.
+ *
+ * https://docs.gradle.org/current/userguide/composite_builds.html
+ */
+
+task('test') {
+    dependsOn 'testPacu'
+    dependsOn 'testCloudsploit'
+
+    /* 
+    dependsOn 'testProwler'
+    dependsOn 'testJMeter'
+
+    dependsOn 'testJenkins'
+    dependsOn 'testGitlab'
+
+    dependsOn 'testTomcat'
+    dependsOn 'testApache'
+    dependsOn 'testNginx'
+
+    dependsOn 'testOsquery'
+    dependsOn 'testAuditbeat'
+    dependsOn 'testFilebeat'
+    dependsOn 'testMetricbeat'
+    dependsOn 'testHeartbeat'
+    dependsOn 'testPacketbeat'
+
+    dependsOn 'testZookeeper'
+    dependsOn 'testKafka'
+    dependsOn 'testLogstash'
+    dependsOn 'testKibana'
+    
+    dependsOn 'testES'
+    dependsOn 'testMysql'
+    dependsOn 'testMariadb'
+    dependsOn 'testPostgres'
+    dependsOn 'testRedis'
+    dependsOn 'testMemcached'
+    dependsOn 'testMongodb'
+    dependsOn 'testHadoop'
+    dependsOn 'testCassandra'
+    dependsOn 'testSpark'
+    dependsOn 'testNeo4j'
+    
+    dependsOn 'testHAProxy'
+    dependsOn 'testProxysql'
+    dependsOn 'testPgbouncer'
+    */
+}
+task('testBaseImages') {
+    dependsOn 'testNodejs'
+    dependsOn 'testPython3'
+    dependsOn 'testRuby'
+    // dependsOn 'testOpenjdk'
+}
+task('testNodejs') {
+    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu16.04:test')
+}
+task('testPython3') {
+    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu16.04:test')
+}
+task('testRuby') {
+    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu16.04:test')
+}
+
+
+
+task('testPacu') {
+    dependsOn 'testPython3'
+    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu16.04:test')
+}
+task('testCloudsploit') {
+    dependsOn 'testNodejs'
+    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu16.04:test')
+}
