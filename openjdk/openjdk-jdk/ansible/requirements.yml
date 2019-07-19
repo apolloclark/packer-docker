@@ -1,5 +1,0 @@
-# http://docs.ansible.com/ansible/latest/galaxy.html#installing-multiple-roles-from-a-file
----
-- src: https://github.com/apolloclark/java_role
-  version: master
-  name: java_role

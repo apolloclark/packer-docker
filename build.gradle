@@ -5,17 +5,24 @@
  *
  * https://docs.gradle.org/current/userguide/composite_builds.html
  */
+plugins {
+  // https://plugins.gradle.org/plugin/com.dorongold.task-tree
+  id "com.dorongold.task-tree" version "1.4"
+}
 
+
+//optional configuration
+taskTree{
+    noRepeat = true  //do not print a sub-tree in the task-tree more than once
+    impliesSubProjects = false  //do not print task-tree for child projects in a multi-project
+    // taskDepth = 3 // limit tree depth to 3. Equivalent to running with the --task-depth option.
+}
 task('test') {
     dependsOn 'testPacu'
     dependsOn 'testCloudsploit'
 
     /* 
     dependsOn 'testProwler'
-    dependsOn 'testJMeter'
-
-    dependsOn 'testJenkins'
-    dependsOn 'testGitlab'
 
     dependsOn 'testTomcat'
     dependsOn 'testApache'
@@ -32,8 +39,12 @@ task('test') {
     dependsOn 'testKafka'
     dependsOn 'testLogstash'
     dependsOn 'testKibana'
-    
     dependsOn 'testES'
+
+    dependsOn 'testJenkins'
+    dependsOn 'testGitlab'
+    dependsOn 'testJMeter'
+
     dependsOn 'testMysql'
     dependsOn 'testMariadb'
     dependsOn 'testPostgres'
@@ -44,7 +55,7 @@ task('test') {
     dependsOn 'testCassandra'
     dependsOn 'testSpark'
     dependsOn 'testNeo4j'
-    
+
     dependsOn 'testHAProxy'
     dependsOn 'testProxysql'
     dependsOn 'testPgbouncer'
@@ -54,7 +65,7 @@ task('testBaseImages') {
     dependsOn 'testNodejs'
     dependsOn 'testPython3'
     dependsOn 'testRuby'
-    // dependsOn 'testOpenjdk'
+    dependsOn 'testOpenjdk'
 }
 task('testNodejs') {
     dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:centos7.6:test')
@@ -70,6 +81,11 @@ task('testRuby') {
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu16.04:test')
+}
+task('testOpenjdk') {
+    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu16.04:test')
 }
 
 

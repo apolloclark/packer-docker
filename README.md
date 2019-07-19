@@ -13,28 +13,37 @@ Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Install
 ```shell
-git clone --recurse-submodules https://github.com/apolloclark/packer-docker
-cd ./packer-elk-docker
+git clone https://github.com/apolloclark/packer-nodejs
+git clone https://github.com/apolloclark/packer-ruby
+git clone https://github.com/apolloclark/packer-python3
+git clone https://github.com/apolloclark/packer-openjdk
+
+git clone https://github.com/apolloclark/packer-pacu
+git clone https://github.com/apolloclark/packer-cloudsploit
+git clone https://github.com/apolloclark/packer-tomcat
+
+git clone https://github.com/apolloclark/packer-osquery
+
+git clone https://github.com/apolloclark/packer-docker
+cd ./packer-docker
 
 # add submodules
 git submodule add https://github.com/apolloclark/gradle-build
 git submodule add https://github.com/apolloclark/packer-build
 
 # update submodules
-git submodule init
 git submodule update --recursive --remote
 
 # set your Docker hub username, beats version, java version
 export DOCKER_USERNAME="apolloclark" # $(whoami)
-export BEATS_VERSION="6.5.4"   # https://github.com/elastic/beats/releases
-export JAVA_VERSION="11.0.1"   # https://launchpad.net/~openjdk-r/+archive/ubuntu/ppa?field.series_filter=xenial
-export TOMCAT_VERSION="9.0.14" # https://archive.apache.org/dist/tomcat/tomcat-9/
 
-# ./all.sh
-./lint.sh
-./build_test.sh
-./push.sh
 
+
+# Gradle, lint, build, test
+gradle testBaseImages --parallel
+
+# Gradle, print taskTree / dependency graphy
+gradle test taskTree --no-repeat --dry-run
 
 
 
