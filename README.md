@@ -2,27 +2,35 @@
 
 I rebuild my Docker images every week. You should too! 🧐
 
-Packer, Ansible, Serverspec, project to create Docker images.
+Gradle, Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Requirements
 
-- Packer
-- Ansible
-- Ruby, [Serverspec](https://serverspec.org/): gem install serverspec
-- Ruby, Docker-Api: gem install docker-api
+- [Gradle](https://gradle.org/install/#manually)
+- [Packer](https://packer.io/)
+- [Ansible](https://www.ansible.com/)
+
+- [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
+- [Serverspec](https://serverspec.org/): gem install serverspec
+- [docker-api](https://github.com/swipely/docker-api/releases): gem install docker-api
+
+
+
+
 
 ## Install
 ```shell
-git clone https://github.com/apolloclark/packer-nodejs
-git clone https://github.com/apolloclark/packer-ruby
-git clone https://github.com/apolloclark/packer-python3
-git clone https://github.com/apolloclark/packer-openjdk
+git clone --recurse-submodules https://github.com/apolloclark/packer-nodejs
+git clone --recurse-submodules https://github.com/apolloclark/packer-ruby
+git clone --recurse-submodules https://github.com/apolloclark/packer-python3
+git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
 
-git clone https://github.com/apolloclark/packer-pacu
-git clone https://github.com/apolloclark/packer-cloudsploit
-git clone https://github.com/apolloclark/packer-tomcat
+git clone --recurse-submodules https://github.com/apolloclark/packer-cloudsploit
+git clone --recurse-submodules https://github.com/apolloclark/packer-pacu
+git clone --recurse-submodules https://github.com/apolloclark/packer-prowler
 
-git clone https://github.com/apolloclark/packer-osquery
+git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
+git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
 
 git clone https://github.com/apolloclark/packer-docker
 cd ./packer-docker
@@ -41,6 +49,12 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 
 # Gradle, lint, build, test
 gradle testBaseImages --parallel
+gradle test --parallel
+
+screen -dmS packer gradle testBaseImages --parallel
+ctrl + a d
+screen -ls
+screen -r
 
 # Gradle, print taskTree / dependency graphy
 gradle test taskTree --no-repeat --dry-run
@@ -77,6 +91,32 @@ rake spec
 docker system prune -af
 
 ```
+
+
+
+
+## Architecture
+
+- PCI, HIPAA, FIPS, etc. security compliance regulations require upgrading all
+systems within 7 days of a critical severity vulnerability fix being available
+- Docker image rebuilds should be automated
+- Multiple builds should be parallelized
+- Bash is tedious to write, maintain, debug, and terrible at parameterized service configuration
+- Makefile format is only slightly more maintainable than Bash scripts
+- Maven and Ant are decent, but are also outdated
+- Dockerfiles are little more than wrappers around Bash, while Ansible / Puppet / Chef exist
+- Ansible has the greatest support for popular services, most OSes, parameterized configuration, and test suites
+- Packer is a great tool to build Docker images, using a JSON file, to call Ansible
+- Goss is very popular for testing (3200+ stars vs. serverspec's 2200+ stars),
+uses a simple YAML file, and does not require installing an additional programming language
+- Jenkins, TravisCI, etc. require a third-party external service to run
+- Gradle strikes a good balance between being command-line only, and parallelizable
+- I chose to create a Jenkinsfile, to allow for quick adoption into existing 
+Jenkins build pipelines
+
+
+
+
 
 ## Build Details
 

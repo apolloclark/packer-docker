@@ -17,3 +17,4 @@ includeBuild '../packer-openjdk/base'
 
 includeBuild '../packer-pacu'
 includeBuild '../packer-cloudsploit'
+includeBuild '../packer-prowler'

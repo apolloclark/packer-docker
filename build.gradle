@@ -20,10 +20,9 @@ taskTree{
 task('test') {
     dependsOn 'testPacu'
     dependsOn 'testCloudsploit'
-
-    /* 
     dependsOn 'testProwler'
 
+    /*
     dependsOn 'testTomcat'
     dependsOn 'testApache'
     dependsOn 'testNginx'
@@ -68,21 +67,29 @@ task('testBaseImages') {
     dependsOn 'testOpenjdk'
 }
 task('testNodejs') {
+    // dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu16.04:test')
 }
 task('testPython3') {
+    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu16.04:test')
 }
 task('testRuby') {
+    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu16.04:test')
 }
 task('testOpenjdk') {
+    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu16.04:test')
@@ -92,12 +99,24 @@ task('testOpenjdk') {
 
 task('testPacu') {
     dependsOn 'testPython3'
+    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu16.04:test')
 }
+task('testProwler') {
+    dependsOn 'testPython3'
+    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:rhel7.6:test')
+    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:centos7.6:test')
+    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:ubuntu18.04:test')
+    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:ubuntu16.04:test')
+}
 task('testCloudsploit') {
     dependsOn 'testNodejs'
+    // dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:rhel8.0:test')
+    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:rhel7.6:test')
     dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:centos7.6:test')
     dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu18.04:test')
     dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu16.04:test')
