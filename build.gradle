@@ -11,113 +11,106 @@ plugins {
 }
 
 
-//optional configuration
+
+// optional configuration
 taskTree{
-    noRepeat = true  //do not print a sub-tree in the task-tree more than once
+    noRepeat = false  //do not print a sub-tree in the task-tree more than once
     impliesSubProjects = false  //do not print task-tree for child projects in a multi-project
     // taskDepth = 3 // limit tree depth to 3. Equivalent to running with the --task-depth option.
 }
-task('test') {
-    dependsOn 'testPacu'
-    dependsOn 'testCloudsploit'
-    dependsOn 'testProwler'
+def defaulImgActions = ['clean', 'build', 'test', 'push']
+def defaultOses = ['rhel8.0', 'rhel7.6', 'centos7.6', 'ubuntu18.04', 'ubuntu16.04']
+def imgList = [
+    'nodejs': [
+        'oses': ['rhel7.6', 'centos7.6', 'ubuntu18.04', 'ubuntu16.04'],
+        'children': [
+            'cloudsploit': [
+                'oses': ['rhel7.6', 'centos7.6', 'ubuntu18.04', 'ubuntu16.04'],
+            ]
+        ]
+     ],
+    'python3': [
+        'oses': 'all',
+        'children': [
+            'pacu': [
+                'oses': 'all',
+            ],
+            'prowler': [
+                'oses': 'all',
+            ],
+        ]
+    ],
+    'ruby': [
+        'oses': 'all',
+    ],
+    'openjdk': [
+        'oses': 'all',
+    ]
+]
 
-    /*
-    dependsOn 'testTomcat'
-    dependsOn 'testApache'
-    dependsOn 'testNginx'
+// http://www.java2novice.com/gradle/dynamic-tasks/
+// http://www.groovy-lang.org/groovy-dev-kit.html#_iterating_on_maps
+// https://stackoverflow.com/questions/28180151/call-zip-task-multiple-times-in-gradle
 
-    dependsOn 'testOsquery'
-    dependsOn 'testAuditbeat'
-    dependsOn 'testFilebeat'
-    dependsOn 'testMetricbeat'
-    dependsOn 'testHeartbeat'
-    dependsOn 'testPacketbeat'
 
-    dependsOn 'testZookeeper'
-    dependsOn 'testKafka'
-    dependsOn 'testLogstash'
-    dependsOn 'testKibana'
-    dependsOn 'testES'
 
-    dependsOn 'testJenkins'
-    dependsOn 'testGitlab'
-    dependsOn 'testJMeter'
 
-    dependsOn 'testMysql'
-    dependsOn 'testMariadb'
-    dependsOn 'testPostgres'
-    dependsOn 'testRedis'
-    dependsOn 'testMemcached'
-    dependsOn 'testMongodb'
-    dependsOn 'testHadoop'
-    dependsOn 'testCassandra'
-    dependsOn 'testSpark'
-    dependsOn 'testNeo4j'
 
-    dependsOn 'testHAProxy'
-    dependsOn 'testProxysql'
-    dependsOn 'testPgbouncer'
-    */
+
+for(action in defaulImgActions){
+    // create tasks for the base images
+    task("${action}BaseImages") {
+        imgList.each { id, val ->
+            def idCapitalized = id.capitalize()
+            dependsOn "$action$idCapitalized"
+        }
+    }
+    // create tasks for the children images
+    task("$action") {
+        imgList.each { key, val ->
+            if (val.containsKey('children')) {
+                val['children'].each { id, val2 ->
+                    def idCapitalized = id.capitalize()
+                    dependsOn "$action$idCapitalized"
+                }
+            }
+        }
+    }
 }
-task('testBaseImages') {
-    dependsOn 'testNodejs'
-    dependsOn 'testPython3'
-    dependsOn 'testRuby'
-    dependsOn 'testOpenjdk'
-}
-task('testNodejs') {
-    // dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-nodejs').task(':gradle-build:ubuntu16.04:test')
-}
-task('testPython3') {
-    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-python3').task(':gradle-build:ubuntu16.04:test')
-}
-task('testRuby') {
-    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-ruby').task(':gradle-build:ubuntu16.04:test')
-}
-task('testOpenjdk') {
-    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-openjdk').task(':gradle-build:ubuntu16.04:test')
-}
-
-
-
-task('testPacu') {
-    dependsOn 'testPython3'
-    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-pacu').task(':gradle-build:ubuntu16.04:test')
-}
-task('testProwler') {
-    dependsOn 'testPython3'
-    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-prowler').task(':gradle-build:ubuntu16.04:test')
-}
-task('testCloudsploit') {
-    dependsOn 'testNodejs'
-    // dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:rhel8.0:test')
-    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:rhel7.6:test')
-    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:centos7.6:test')
-    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu18.04:test')
-    dependsOn gradle.includedBuild('packer-cloudsploit').task(':gradle-build:ubuntu16.04:test')
+for(a in imgList){
+    def imgId = a.key
+    def val = a.value
+    def idCapitalized = imgId.capitalize()
+    // create tasks to test the top-level images
+    for(action in defaulImgActions){
+        task("$action$idCapitalized") {
+            def osList = defaultOses
+            if (val['oses'] != 'all') {
+                osList = val['oses']
+            }
+            for(osId in osList){
+                dependsOn gradle.includedBuild("packer-$imgId").task(":gradle-build:$osId:$action")
+            }
+        }
+    }
+    // create tasks for child images
+    if (val.containsKey('children')){
+        // def parentIdCapitalized = imgId.capitalize()
+        for(e in val['children']) {
+            def childIdCapitalized = e.key.capitalize()
+            def imgId2 = e.key
+            for(action in defaulImgActions){
+                task("$action$childIdCapitalized") {
+                    dependsOn "$action$idCapitalized"
+                    def osList = defaultOses
+                    if (e.value['oses'] != 'all') {
+                        osList = e.value['oses']
+                    }
+                    for(osId in osList){
+                        dependsOn gradle.includedBuild("packer-$imgId2").task(":gradle-build:$osId:$action")
+                    }
+                }
+            }
+        }
+    }
 }
