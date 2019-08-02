@@ -48,8 +48,8 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 
 
 # Gradle, lint, build, test
-gradle testBaseImages --parallel
-gradle test --parallel
+gradle testBaseImages --parallel --rerun-tasks
+gradle test --parallel --rerun-tasks
 
 screen -dmS packer gradle testBaseImages --parallel
 ctrl + a d

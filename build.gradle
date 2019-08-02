@@ -102,12 +102,14 @@ for(a in imgList){
             for(action in defaulImgActions){
                 task("$action$childIdCapitalized") {
                     dependsOn "$action$idCapitalized"
-                    def osList = defaultOses
-                    if (e.value['oses'] != 'all') {
-                        osList = e.value['oses']
-                    }
-                    for(osId in osList){
-                        dependsOn gradle.includedBuild("packer-$imgId2").task(":gradle-build:$osId:$action")
+                    doLast {
+                        def osList = defaultOses
+                        if (e.value['oses'] != 'all') {
+                            osList = e.value['oses']
+                        }
+                        for(osId in osList){
+                            dependsOn gradle.includedBuild("packer-$imgId2").task(":gradle-build:$osId:$action")
+                        }
                     }
                 }
             }
