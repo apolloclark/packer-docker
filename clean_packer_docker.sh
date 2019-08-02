@@ -4,11 +4,12 @@ start=`date +%s`
 # ensure that ENV VARs are set
 export DOCKER_USERNAME=${DOCKER_USERNAME:=$(whoami)}
 
-
 # remove previously built local images
-docker system prune -f
+docker kill $(docker ps -q) || true
 
-docker images -a | grep -v "ubi" | grep -F "$DOCKER_USERNAME" | awk '{print $3}' | xargs docker rmi -f
+docker system prune -f || true
+
+docker images -a | grep -v "ubi" | grep -F "$DOCKER_USERNAME" | awk '{print $3}' | xargs docker rmi -f || true
 
 end=`date +%s`
 secs=$((end-start))

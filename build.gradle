@@ -66,12 +66,12 @@ for(action in defaulImgActions){
         }
     }
     // create tasks for the children images
-    task("$action") {
+    task("${action}ChildImages") {
         imgList.each { key, val ->
             if (val.containsKey('children')) {
                 val['children'].each { id, val2 ->
                     def idCapitalized = id.capitalize()
-                    dependsOn "$action$idCapitalized"
+                    dependsOn "${action}${idCapitalized}"
                 }
             }
         }
@@ -83,13 +83,13 @@ for(a in imgList){
     def idCapitalized = imgId.capitalize()
     // create tasks to test the top-level images
     for(action in defaulImgActions){
-        task("$action$idCapitalized") {
+        task("${action}${idCapitalized}") {
             def osList = defaultOses
             if (val['oses'] != 'all') {
                 osList = val['oses']
             }
             for(osId in osList){
-                dependsOn gradle.includedBuild("packer-$imgId").task(":gradle-build:$osId:$action")
+                dependsOn gradle.includedBuild("packer-${imgId}").task(":gradle-build:${osId}:${action}")
             }
         }
     }
@@ -100,19 +100,38 @@ for(a in imgList){
             def childIdCapitalized = e.key.capitalize()
             def imgId2 = e.key
             for(action in defaulImgActions){
-                task("$action$childIdCapitalized") {
-                    dependsOn "$action$idCapitalized"
-                    doLast {
-                        def osList = defaultOses
-                        if (e.value['oses'] != 'all') {
-                            osList = e.value['oses']
-                        }
-                        for(osId in osList){
-                            dependsOn gradle.includedBuild("packer-$imgId2").task(":gradle-build:$osId:$action")
-                        }
+                task("${action}${childIdCapitalized}", type: GradleBuild) {
+                    // dependsOn "$action$idCapitalized"
+                    // mustRunAfter "$action$idCapitalized"
+                    def osList = defaultOses
+                    if (e.value['oses'] != 'all') {
+                        osList = e.value['oses']
+                    }
+                    for(osId in osList){
+                        dependsOn gradle.includedBuild("packer-${imgId2}").task(":gradle-build:${osId}:${action}")
                     }
                 }
             }
         }
     }
+}
+
+/**
+* @function printAllMethods
+* @purpose Prints an objects class name and then list the associated class functions.
+*/
+void printAllMethods( obj ){
+    if( !obj ){
+        println( "Object is null\r\n" );
+        return;
+    }
+    if( !obj.metaClass && obj.getClass() ){
+        printAllMethods( obj.getClass() );
+        return;
+    }
+    def str = "class ${obj.getClass().name} functions:\r\n";
+    obj.metaClass.methods.name.unique().each{ 
+        str += it+"(); "; 
+    }
+    println "${str}\r\n";
 }

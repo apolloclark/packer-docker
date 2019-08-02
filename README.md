@@ -47,9 +47,17 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 
 
 
+
+
 # Gradle, lint, build, test
+./clean_packer_docker.sh
 gradle testBaseImages --parallel --rerun-tasks
-gradle test --parallel --rerun-tasks
+gradle testChildImages --parallel --rerun-tasks
+# gradle test --parallel --rerun-tasks
+
+
+
+
 
 screen -dmS packer gradle testBaseImages --parallel
 ctrl + a d
