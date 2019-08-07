@@ -3,10 +3,23 @@ start=`date +%s`
 
 ./clean_packer_docker.sh
 
+# stop any existing Gradle instances
+sudo killall -9 java || true
+
 gradle testBaseImages --parallel --rerun-tasks
-gradle testChildImages --parallel --rerun-tasks
-docker ps
 docker images | tail -n +2 | sort
+gradle pushBaseImages
+
+# sleep 60s
+# mkdir -p ~/.packer.d/tmp
+# chmod 0777 ~/.packer.d/tmp
+gradle testChildImages --parallel --rerun-tasks
+
+docker ps
+docker container ls --all
+docker images | tail -n +2 | sort
+
+gradle pushChildImages
 
 end=`date +%s`
 secs=$((end-start))

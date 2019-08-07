@@ -71,7 +71,7 @@ for(action in defaulImgActions){
             if (val.containsKey('children')) {
                 val['children'].each { id, val2 ->
                     def idCapitalized = id.capitalize()
-                    dependsOn "${action}${idCapitalized}"
+                    dependsOn "${action}${idCapitalized}OSes"
                 }
             }
         }
@@ -88,7 +88,9 @@ for(a in imgList){
             if (val['oses'] != 'all') {
                 osList = val['oses']
             }
+            logger.info "${action}${idCapitalized}"
             for(osId in osList){
+                logger.info "  packer-${imgId} / :gradle-build:${osId}:${action}"
                 dependsOn gradle.includedBuild("packer-${imgId}").task(":gradle-build:${osId}:${action}")
             }
         }
@@ -100,20 +102,30 @@ for(a in imgList){
             def childIdCapitalized = e.key.capitalize()
             def imgId2 = e.key
             for(action in defaulImgActions){
-                task("${action}${childIdCapitalized}", type: GradleBuild) {
+                task("${action}${childIdCapitalized}OSes") { // , type: GradleBuild
                     // dependsOn "$action$idCapitalized"
-                    // mustRunAfter "$action$idCapitalized"
+                    mustRunAfter "$action$idCapitalized"
                     def osList = defaultOses
                     if (e.value['oses'] != 'all') {
                         osList = e.value['oses']
                     }
                     for(osId in osList){
-                        dependsOn gradle.includedBuild("packer-${imgId2}").task(":gradle-build:${osId}:${action}")
+                        logger.info "packer-${imgId2} / :gradle-build:${osId}:${action}"
+                        def taskId = gradle.includedBuild("packer-${imgId2}").task(":gradle-build:${osId}:${action}").resolveTask()
+                        logger.info "  ${taskId}"
+                        dependsOn taskId
+                        // taskId.mustRunAfter(":${action}${idCapitalized}")
                     }
                 }
             }
         }
     }
+}
+
+task("testCloudsploit") {
+    dependsOn "testNodejs"
+    dependsOn "testCloudsploitOSes"
+    testCloudsploitOSes.mustRunAfter "testNodejs"
 }
 
 /**

@@ -11,7 +11,13 @@ docker kill $(docker ps -q) || true
 
 docker system prune -f || true
 
-docker images -a | grep -v "ubi" | grep -F "$DOCKER_USERNAME" | awk '{print $3}' | xargs docker rmi -f || true
+docker images -a | grep -v "nodejs" | \
+    grep -v "python3" | \
+    grep -v "ruby" | \
+    grep -v "openjdk" | \
+    grep -F "$DOCKER_USERNAME" | awk '{print $3}' | xargs docker rmi -f || true
+
+docker images | tail -n +2 | sort
 
 end=`date +%s`
 secs=$((end-start))
