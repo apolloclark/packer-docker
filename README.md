@@ -20,17 +20,43 @@ Gradle, Packer, Ansible, Serverspec, project to create Docker images.
 
 ## Install
 ```shell
-git clone --recurse-submodules https://github.com/apolloclark/packer-nodejs
-git clone --recurse-submodules https://github.com/apolloclark/packer-ruby
 git clone --recurse-submodules https://github.com/apolloclark/packer-python3
+    git clone --recurse-submodules https://github.com/apolloclark/packer-prowler
+    git clone --recurse-submodules https://github.com/apolloclark/packer-pacu
+git clone --recurse-submodules https://github.com/apolloclark/packer-nodejs
+    git clone --recurse-submodules https://github.com/apolloclark/packer-cloudsploit
+git clone --recurse-submodules https://github.com/apolloclark/packer-ruby
 git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
+    git clone --recurse-submodules https://github.com/apolloclark/packer-elasticsearch
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-kibana
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-logstash
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-kafka
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-zookeeper
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-jenkins
+//     git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
 
-git clone --recurse-submodules https://github.com/apolloclark/packer-cloudsploit
-git clone --recurse-submodules https://github.com/apolloclark/packer-pacu
-git clone --recurse-submodules https://github.com/apolloclark/packer-prowler
+// git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
+// git clone --recurse-submodules https://github.com/apolloclark/packer-auditbeat
+// git clone --recurse-submodules https://github.com/apolloclark/packer-filebeat
+// git clone --recurse-submodules https://github.com/apolloclark/packer-metricbeat
+// git clone --recurse-submodules https://github.com/apolloclark/packer-heartbeat
+// git clone --recurse-submodules https://github.com/apolloclark/packer-packetbeat
 
-git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
-git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
+// git clone --recurse-submodules https://github.com/apolloclark/packer-apache
+// git clone --recurse-submodules https://github.com/apolloclark/packer-nginx
+
+// git clone --recurse-submodules https://github.com/apolloclark/packer-mysql
+// git clone --recurse-submodules https://github.com/apolloclark/packer-postgresql
+// git clone --recurse-submodules https://github.com/apolloclark/packer-redis
+// git clone --recurse-submodules https://github.com/apolloclark/packer-memcached
+// git clone --recurse-submodules https://github.com/apolloclark/packer-mongodb
+// git clone --recurse-submodules https://github.com/apolloclark/packer-neo4j
+
+// git clone --recurse-submodules https://github.com/apolloclark/packer-gitlab
+// git clone --recurse-submodules https://github.com/apolloclark/packer-sonarcube
+// git clone --recurse-submodules https://github.com/apolloclark/packer-awx
+
+
 
 git clone https://github.com/apolloclark/packer-docker
 cd ./packer-docker
@@ -44,20 +70,39 @@ git submodule update --recursive --remote
 
 # set your Docker hub username, beats version, java version
 export DOCKER_USERNAME="apolloclark" # $(whoami)
+```
+<br/><br/><br/>
 
 
 
+## Support Matrix
+
+<!--
+|                   | Ubuntu | Ubuntu | Debian | Debian |  RHEL |  RHEL | CentOS | Amazon |
+|                   |  18.04 |  16.04 |   10   |   9    |   8   |   7   |   7    |    2   | -->
+
+|                   | Ubuntu<br/>18.04 | Ubuntu<br/>16.04 | Debian<br/>10 | Debian<br/>9 | RHEL<br/>8 | RHEL<br/>7 | CentOS<br/>7 | Amazon<br/>Linux<br/>2 |
+|------------------:|:------:|:------:|:------:|:------:|:-----:|:-----:|:------:|:-----:|
+|       **Python3** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|           Prowler |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|              Pacu |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|       **Node.js** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|       Cloudsploit |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|          **Ruby** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|       **OpenJDK** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|                   |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+<br/><br/><br/>
 
 
+
+## Build
+```
 # Gradle, lint, build, test
 ./clean_packer_docker.sh
 gradle testBaseImages --parallel --rerun-tasks
 gradle testChildImages --parallel --rerun-tasks
 # gradle test --parallel --rerun-tasks
-
-
-
-
 
 screen -dmS packer gradle testBaseImages --parallel
 ctrl + a d
