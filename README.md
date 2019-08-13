@@ -1,18 +1,25 @@
-# packer-docker
+dddd# packer-docker
 
 I rebuild my Docker images every week. You should too! 🧐
 
-Gradle, Packer, Ansible, Serverspec, project to create Docker images.
+Gradle, Packer, Ansible, Serverspec, project to create Docker images for:
+- Ubuntu 18.04
+- Ubuntu 16.04
+- Debian 10 Buster
+- Debian 9 Stretch
+- RHEL 8 UBI
+- RHEL 7 UBI
+- CentOS 7
+- Amazon Linux 2
 
 ## Requirements
 
 - [Gradle](https://gradle.org/install/#manually)
 - [Packer](https://packer.io/)
 - [Ansible](https://www.ansible.com/)
-
 - [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
-- [Serverspec](https://serverspec.org/): gem install serverspec
-- [docker-api](https://github.com/swipely/docker-api/releases): gem install docker-api
+    - [Serverspec](https://serverspec.org/): gem install serverspec
+    - [docker-api](https://github.com/swipely/docker-api/releases): gem install docker-api
 
 
 
@@ -35,12 +42,12 @@ git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
 //     git clone --recurse-submodules https://github.com/apolloclark/packer-jenkins
 //     git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
 
-// git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
 // git clone --recurse-submodules https://github.com/apolloclark/packer-auditbeat
 // git clone --recurse-submodules https://github.com/apolloclark/packer-filebeat
 // git clone --recurse-submodules https://github.com/apolloclark/packer-metricbeat
 // git clone --recurse-submodules https://github.com/apolloclark/packer-heartbeat
 // git clone --recurse-submodules https://github.com/apolloclark/packer-packetbeat
+// git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
 
 // git clone --recurse-submodules https://github.com/apolloclark/packer-apache
 // git clone --recurse-submodules https://github.com/apolloclark/packer-nginx
@@ -55,8 +62,6 @@ git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
 // git clone --recurse-submodules https://github.com/apolloclark/packer-gitlab
 // git clone --recurse-submodules https://github.com/apolloclark/packer-sonarcube
 // git clone --recurse-submodules https://github.com/apolloclark/packer-awx
-
-
 
 git clone https://github.com/apolloclark/packer-docker
 cd ./packer-docker
@@ -86,12 +91,13 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |       **Python3** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |           Prowler |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |              Pacu |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
-|       **Node.js** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
-|       Cloudsploit |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
-|          **Ruby** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|       **Node.js** |   ✓    |   ✓    |        |        |   ✓   |   ✓   |   ✓    |       |
+|       Cloudsploit |   ✓    |   ✓    |        |        |   ✓   |   ✓   |   ✓    |       |
+|          **Ruby** |   ✓    |   ✓    |        |        |   ✓   |   ✓   |   ✓    |       |
 |       **OpenJDK** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |                   |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+
 <br/><br/><br/>
 
 
@@ -151,7 +157,7 @@ docker system prune -af
 ## Architecture
 
 - PCI, HIPAA, FIPS, etc. security compliance regulations require upgrading all
-systems within 7 days of a critical severity vulnerability fix being available
+systems within 30 days of a critical severity vulnerability fix being available
 - Docker image rebuilds should be automated
 - Multiple builds should be parallelized
 - Bash is tedious to write, maintain, debug, and terrible at parameterized service configuration

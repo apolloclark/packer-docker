@@ -1,3 +1,0 @@
-# http://docs.ansible.com/ansible/latest/galaxy.html#installing-multiple-roles-from-a-file
----
-- src: apolloclark.elasticsearch          # https://github.com/apolloclark/ansible-role-elasticsearch

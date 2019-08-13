@@ -1,9 +1,0 @@
-# http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-file-separation
----
-hostname: all
-
-# idealista.tomcat-role
-tomcat_version: 9.0.14
-tomcat_service_enabled: false
-tomcat_service_state: stopped
-tomcat_install_path: "/usr/local/tomcat"
