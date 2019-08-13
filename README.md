@@ -92,7 +92,7 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |           Prowler |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |              Pacu |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |       **Node.js** |   ✓    |   ✓    |   ✓    |   ✓    |       |   ✓   |   ✓    |   ✓   |
-|       Cloudsploit |   ✓    |   ✓    |        |        |       |   ✓   |   ✓    |       |
+|       Cloudsploit |   ✓    |   ✓    |   ✓    |   ✓    |       |   ✓   |   ✓    |   ✓   |
 |          **Ruby** |   ✓    |   ✓    |        |        |   ✓   |   ✓   |   ✓    |       |
 |       **OpenJDK** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
