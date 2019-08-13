@@ -1,4 +1,4 @@
-dddd# packer-docker
+# packer-docker
 
 I rebuild my Docker images every week. You should too! 🧐
 
@@ -93,7 +93,7 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |              Pacu |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |       **Node.js** |   ✓    |   ✓    |   ✓    |   ✓    |       |   ✓   |   ✓    |   ✓   |
 |       Cloudsploit |   ✓    |   ✓    |   ✓    |   ✓    |       |   ✓   |   ✓    |   ✓   |
-|          **Ruby** |   ✓    |   ✓    |        |        |   ✓   |   ✓   |   ✓    |       |
+|          **Ruby** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |       **OpenJDK** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |                   |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
