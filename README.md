@@ -34,12 +34,12 @@ git clone --recurse-submodules https://github.com/apolloclark/packer-nodejs
     git clone --recurse-submodules https://github.com/apolloclark/packer-cloudsploit
 git clone --recurse-submodules https://github.com/apolloclark/packer-ruby
 git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
+    git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
     git clone --recurse-submodules https://github.com/apolloclark/packer-elasticsearch
-//     git clone --recurse-submodules https://github.com/apolloclark/packer-logstash
+    git clone --recurse-submodules https://github.com/apolloclark/packer-logstash
 //     git clone --recurse-submodules https://github.com/apolloclark/packer-kafka
 //     git clone --recurse-submodules https://github.com/apolloclark/packer-zookeeper
 //     git clone --recurse-submodules https://github.com/apolloclark/packer-jenkins
-//     git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
 
 // git clone --recurse-submodules https://github.com/apolloclark/packer-kibana
 // git clone --recurse-submodules https://github.com/apolloclark/packer-auditbeat
@@ -97,7 +97,7 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |       **OpenJDK** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |            Tomcat |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
-|                   |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|          Logstash |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 
 <br/><br/><br/>
 
