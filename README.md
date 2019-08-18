@@ -37,31 +37,8 @@ git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
     git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
     git clone --recurse-submodules https://github.com/apolloclark/packer-elasticsearch
     git clone --recurse-submodules https://github.com/apolloclark/packer-logstash
-//     git clone --recurse-submodules https://github.com/apolloclark/packer-kafka
-//     git clone --recurse-submodules https://github.com/apolloclark/packer-zookeeper
-//     git clone --recurse-submodules https://github.com/apolloclark/packer-jenkins
 
-// git clone --recurse-submodules https://github.com/apolloclark/packer-kibana
-// git clone --recurse-submodules https://github.com/apolloclark/packer-auditbeat
-// git clone --recurse-submodules https://github.com/apolloclark/packer-filebeat
-// git clone --recurse-submodules https://github.com/apolloclark/packer-metricbeat
-// git clone --recurse-submodules https://github.com/apolloclark/packer-heartbeat
-// git clone --recurse-submodules https://github.com/apolloclark/packer-packetbeat
-// git clone --recurse-submodules https://github.com/apolloclark/packer-osquery
-
-// git clone --recurse-submodules https://github.com/apolloclark/packer-apache
-// git clone --recurse-submodules https://github.com/apolloclark/packer-nginx
-
-// git clone --recurse-submodules https://github.com/apolloclark/packer-mysql
-// git clone --recurse-submodules https://github.com/apolloclark/packer-postgresql
-// git clone --recurse-submodules https://github.com/apolloclark/packer-redis
-// git clone --recurse-submodules https://github.com/apolloclark/packer-memcached
-// git clone --recurse-submodules https://github.com/apolloclark/packer-mongodb
-// git clone --recurse-submodules https://github.com/apolloclark/packer-neo4j
-
-// git clone --recurse-submodules https://github.com/apolloclark/packer-gitlab
-// git clone --recurse-submodules https://github.com/apolloclark/packer-sonarcube
-// git clone --recurse-submodules https://github.com/apolloclark/packer-awx
+git clone --recurse-submodules https://github.com/apolloclark/packer-kibana
 
 git clone https://github.com/apolloclark/packer-docker
 cd ./packer-docker
@@ -98,6 +75,8 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |            Tomcat |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |     Elasticsearch |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |          Logstash |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|        **Agents** |        |        |        |        |       |       |        |       |
+|            Kibana |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 
 <br/><br/><br/>
 
