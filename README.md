@@ -35,10 +35,11 @@ git clone --recurse-submodules https://github.com/apolloclark/packer-nodejs
 git clone --recurse-submodules https://github.com/apolloclark/packer-ruby
 git clone --recurse-submodules https://github.com/apolloclark/packer-openjdk
     git clone --recurse-submodules https://github.com/apolloclark/packer-tomcat
-    git clone --recurse-submodules https://github.com/apolloclark/packer-elasticsearch
+    git clone --recurse-submodules https://github.com/apolloclark/packer-es
     git clone --recurse-submodules https://github.com/apolloclark/packer-logstash
 
 git clone --recurse-submodules https://github.com/apolloclark/packer-kibana
+git clone --recurse-submodules https://github.com/apolloclark/packer-vault
 
 git clone https://github.com/apolloclark/packer-docker
 cd ./packer-docker
@@ -77,9 +78,29 @@ export DOCKER_USERNAME="apolloclark" # $(whoami)
 |          Logstash |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 |        **Agents** |        |        |        |        |       |       |        |       |
 |            Kibana |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|   HashiCorp Vault |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
 
 <br/><br/><br/>
 
+## History
+
+The following is a matrix of OS support and popularity of distros in deploy environments.
+
+<!--
+|                   | Ubuntu | Ubuntu | Debian | Debian |  RHEL |  RHEL | CentOS | Amazon |
+|                   |  18.04 |  16.04 |   10   |   9    |   8   |   7   |   7    |    2   | -->
+|                   | Ubuntu<br/>18.04 | Ubuntu<br/>16.04 | Debian<br/>10 | Debian<br/>9 | RHEL<br/>8 | RHEL<br/>7 | CentOS<br/>7 | Amazon<br/>Linux<br/>2 |
+|------------------:|:------:|:------:|:------:|:------:|:-----:|:-----:|:------:|:-----:|
+|       **Desktop** |   ✓    |   ✓    |        |        |       |       |        |       |
+|     **Server VM** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |       |
+|    **Amazon AWS** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |   ✓   |
+|      **MS Azure** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |       |
+|    **Google GCP** |   ✓    |   ✓    |   ✓    |   ✓    |   ✓   |   ✓   |   ✓    |       |
+|        **Docker** |   ✓    |   ✓    |   ✓    |   ✓    |       |       |   ✓    |   ✓   |
+
+Ubuntu 18.04 / 16.04 is the only Linux distro which is widely used and supported
+on the widest range of deploy environments. Admittedly, Debian 10 / 9 and Alpine
+are more popular within the Docker environment.
 
 
 ## Build
@@ -134,11 +155,14 @@ docker system prune -af
 
 
 
+
 ## Architecture
 
-- PCI, HIPAA, FIPS, etc. security compliance regulations require upgrading all
-systems within 30 days of a critical severity vulnerability fix being available
+- PCI / NYDFS, HITECH / HIPAA, FIPS / FedRAMP, etc. security compliance
+regulations require upgrading a system within 30 days of a critical severity
+vulnerability fix being available
 - Docker image rebuilds should be automated
+- Docker images should be rebuilt weekly
 - Multiple builds should be parallelized
 - Bash is tedious to write, maintain, debug, and terrible at parameterized service configuration
 - Makefile format is only slightly more maintainable than Bash scripts
@@ -147,7 +171,8 @@ systems within 30 days of a critical severity vulnerability fix being available
 - Ansible has the greatest support for popular services, most OSes, parameterized configuration, and test suites
 - Packer is a great tool to build Docker images, using a JSON file, to call Ansible
 - Goss is very popular for testing (3200+ stars vs. serverspec's 2200+ stars),
-uses a simple YAML file, and does not require installing an additional programming language
+uses a simple YAML file, and does not require installing an additional
+programming language dependency
 - Jenkins, TravisCI, etc. require a third-party external service to run
 - Gradle strikes a good balance between being command-line only, and parallelizable
 - I chose to create a Jenkinsfile, to allow for quick adoption into existing 
@@ -163,15 +188,15 @@ Jenkins build pipelines
 Beats, 6.5.4, 2018-12-19
 https://github.com/elastic/beats/releases
 
-Java, 11.0.1, 2018-10-17
+Java, 11.0.4, 2019-07-16
 https://en.wikipedia.org/wiki/Java_version_history
 https://launchpad.net/~linuxuprising/+archive/ubuntu/java
 https://launchpad.net/~openjdk-r/+archive/ubuntu/ppa/+packages?field.name_filter=&field.status_filter=published&field.series_filter=xenial
 
-Tomcat, 9.0.14, 2018-12-06
-https://github.com/docker-library/tomcat/blob/master/9.0/jre11/Dockerfile
-https://tomcat.apache.org/tomcat-9.0-doc/changelog.html
+Tomcat, 9.0.22, 2018-07-09
 http://tomcat.apache.org/whichversion.html
+https://tomcat.apache.org/tomcat-9.0-doc/changelog.html
+https://github.com/docker-library/tomcat/blob/master/9.0/jre11/Dockerfile
 
 Zookeeper, 3.4.13, 2018-06-15
 https://zookeeper.apache.org/releases.html
@@ -186,6 +211,5 @@ https://github.com/idealista/kafka-role
 
 https://github.com/elastic/elasticsearch-docker/tree/master/.tedi/template
 https://molecule.readthedocs.io/en/latest/index.html
-
 
 ```
