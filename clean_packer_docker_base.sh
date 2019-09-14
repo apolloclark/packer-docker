@@ -11,7 +11,8 @@ docker kill $(docker ps -q) || true
 
 docker system prune -f || true
 
-docker images -a | grep -v "nodejs" | \
+docker images -a | \
+    grep -v "nodejs" | \
     grep -v "python3" | \
     grep -v "ruby" | \
     grep -v "openjdk" | \
